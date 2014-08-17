@@ -4,17 +4,17 @@
 *
 */
 	// this file assembles css for wp_head from theme_customization selections
-	include get_template_directory() . '/includes/theme_customization_css.php';
+	include get_template_directory() . '/includes/responsive-tabs-customization-css.php';
 
 	// include the theme customizer function which handles most options
 	// note: it is apparently necessary to include this call outside is_admin() condition to allow refresh to work in customizer
-	include get_template_directory() . '/includes/theme_customization.php';
+	include get_template_directory() . '/includes/responsive-tabs-customization.php';
 	// this file includes widget code
-	include get_template_directory() . '/includes/bbp_resp_widgets.php';
-   include get_template_directory() . '/includes/akismet.class.php';	
+	include get_template_directory() . '/includes/responsive-tabs-widgets.php';
+   
 	
 	$bbp_resp_theme_options_array = get_option( 'bbp_resp_theme_options_array' );		
-	if($bbp_resp_theme_options_array['show_publications']) include get_template_directory() . '/includes/twcc_clippings.php';
+
 /*
 * admin 
 *
@@ -24,7 +24,6 @@ $theme_options_tabs = array (
    	array ('accordion', 'Accordion'),
    	array ('scripts', 'CSS/Scripts'),
    	array ('breadcrumbs', 'Breadcrumbs'),
-		array ('publications', 'Publications'),
 );
 
 /* http://stackoverflow.com/questions/5266945/wordpress-how-detect-if-current-page-is-the-login-page */
@@ -32,24 +31,20 @@ function is_login_page() {
     return in_array($GLOBALS['pagenow'], array('wp-login.php', 'wp-register.php'));
 }
 
-if (is_login_page()) 
-{
-	include get_template_directory() . '/wb_login_functions.php';
-}
 
 if ( is_admin())
 {
 	global $theme_options_tabs;
 
 	// include and construct the theme options page for tabs and accordions
-	include get_template_directory() . '/includes/theme_options.php';
+	include get_template_directory() . '/includes/class-responsive-tabs-theme-options.php';
 
 
 
 	// construct the tabs
 	foreach ($theme_options_tabs as $tab)
 	{
-		include get_template_directory() . '/includes/theme_options_' .  $tab[0] . '.php';
+		include get_template_directory() . '/includes/class-responsive-tabs-' .  $tab[0] . '-tab.php';
 	}
 }
 
