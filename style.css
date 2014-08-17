@@ -296,13 +296,7 @@ img
 	vertical-align: middle;
 }
 
-/* Limit widths of text elements, but not tables in full-width mode */
-#full-width-content-wrapper h1,
-#full-width-content-wrapper h2, 
-#full-width-content-wrapper h3,
-#full-width-content-wrapper h4,
-#full-width-content-wrapper h5,
-#full-width-content-wrapper h6, 
+/* Limit widths of text elements, but not headers or tables in full-width mode */
 #full-width-content-wrapper a, 
 #full-width-content-wrapper p, 
 #full-width-content-wrapper li,
@@ -312,12 +306,6 @@ img
 	max-width: 600px; 
 }
 
-#retina-full-width-content-wrapper h1,
-#retina-full-width-content-wrapper h2, 
-#retina-full-width-content-wrapper h3,
-#retina-full-width-content-wrapper h4,
-#retina-full-width-content-wrapper h5,
-#retina-full-width-content-wrapper h6, 
 #retina-full-width-content-wrapper a, 
 #retina-full-width-content-wrapper p, 
 #retina-full-width-content-wrapper li,
@@ -755,7 +743,7 @@ div.home_bulk_widget_wrapper:nth-of-type(5n+4)
 }
 
 /* horizontal bar */
-.horbar_clear_fix
+.horbar-clear-fix
 {
 	clear: both;
 	display: block;
