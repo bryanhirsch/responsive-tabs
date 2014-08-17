@@ -66,7 +66,7 @@ echo '<div id="breadcrumbs">';
 			}
 			$day = get_query_var( 'day');
 			if ( $day > 0 ) {
-			$	day_link = ' <a href="'. get_day_link($year, $monthnum, $day).'">'. $day. '</a> &raquo;  '; 		
+				$day_link = ' <a href="'. get_day_link($year, $monthnum, $day).'">'. $day. '</a> &raquo;  '; 		
 			}
 			echo $home_link. $year_link . $month_link . $day_link;		
 		} elseif ( is_author() ) {
