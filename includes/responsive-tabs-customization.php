@@ -33,7 +33,7 @@ $font_size_array = array
 	'60px'	=> '60px',
 );
 							
-function bbp_resp_theme_customizer( $wp_customize ) {
+function responsive_tabs_theme_customizer( $wp_customize ) {
 
 global $font_family_array;
 global $font_size_array;
@@ -41,7 +41,7 @@ global $font_size_array;
 /* create custom call back for text area */
 // http://ottopress.com/2012/making-a-custom-control-for-the-theme-customizer/
 
-class bbp_resp_Textarea_Control extends WP_Customize_Control {
+class responsive_tabs_Textarea_Control extends WP_Customize_Control {
     public $type = 'textarea';
  
     public function render_content() {
@@ -79,7 +79,7 @@ $wp_customize->add_setting( 'show_login_links', array(
 
 /* body text font sizes */
 
-$wp_customize->add_section( 'bbp_resp_body_font_size' , array(
+$wp_customize->add_section( 'responsive_tabs_body_font_size' , array(
     'title'      => __( 'Body Font Size', 'bbp_resp' ),
     'priority'   => 98,
 ) );
@@ -92,7 +92,7 @@ $wp_customize->add_setting( 'body_text_font_size', array(
 
 /* front page headline */
 
-$wp_customize->add_section( 'bbp_resp_highlight' , array(
+$wp_customize->add_section( 'responsive_tabs_highlight' , array(
     'title'      => __( 'Front Page Highlight', 'bbp_resp' ),
     'priority'   => 99,
 ) );
@@ -184,7 +184,7 @@ $wp_customize->add_control( 'site_info_font_family', array(
 /* body text font sizes */
 $wp_customize->add_control( 'body_text_font_size', array(
     'label'   => 'Select Body Text Font Size: (16px recommended)',
-    'section' => 'bbp_resp_body_font_size',
+    'section' => 'responsive_tabs_body_font_size',
     'type'    => 'select',
     'settings'   => 'body_text_font_size',
     'choices'    => $font_size_array
@@ -200,30 +200,30 @@ $wp_customize->add_control( 'show_login_links', array(
 
 /* highlight headlines */
 
-$wp_customize->add_control( new bbp_resp_Textarea_Control( $wp_customize, 'highlight_headline', array(
+$wp_customize->add_control( new responsive_tabs_Textarea_Control( $wp_customize, 'highlight_headline', array(
 	'label'        => __( 'Highlight Headline', 'bbp_resp' ),
-	'section'    => 'bbp_resp_highlight',
+	'section'    => 'responsive_tabs_highlight',
 	'settings'   => 'highlight_headline',
         'priority'   => 1
 ) ) );
 
-$wp_customize->add_control( new bbp_resp_Textarea_Control( $wp_customize, 'highlight_subhead', array(
+$wp_customize->add_control( new responsive_tabs_Textarea_Control( $wp_customize, 'highlight_subhead', array(
 	'label'        => __( 'Highlight SubHead', 'bbp_resp' ),
-	'section'    => 'bbp_resp_highlight',
+	'section'    => 'responsive_tabs_highlight',
 	'settings'   => 'highlight_subhead',
         'priority'   => 2
 ) ) );
 
-$wp_customize->add_control( new bbp_resp_Textarea_Control( $wp_customize, 'highlight_headline_small_screen', array(
+$wp_customize->add_control( new responsive_tabs_Textarea_Control( $wp_customize, 'highlight_headline_small_screen', array(
 	'label'        => __( 'Highlight Headline Small Screen', 'bbp_resp' ),
-	'section'    => 'bbp_resp_highlight',
+	'section'    => 'responsive_tabs_highlight',
 	'settings'   => 'highlight_headline_small_screen',
         'priority'   => 2
 ) ) );
 
 $wp_customize->add_control( 'highlight_headline_font_family', array(
     'label'   => 'Select Headline Font Family:',
-    'section' => 'bbp_resp_highlight',
+    'section' => 'responsive_tabs_highlight',
     'type'    => 'select',
     'settings'   => 'highlight_headline_font_family',
     'choices'    => $font_family_array
@@ -231,7 +231,7 @@ $wp_customize->add_control( 'highlight_headline_font_family', array(
 
 $wp_customize->add_control( 'highlight_headline_font_size', array(
     'label'   => 'Select Headline Size:',
-    'section' => 'bbp_resp_highlight',
+    'section' => 'responsive_tabs_highlight',
     'type'    => 'select',
     'settings'   => 'highlight_headline_font_size',
     'choices'    => $font_size_array
@@ -239,7 +239,7 @@ $wp_customize->add_control( 'highlight_headline_font_size', array(
 
 $wp_customize->add_control( 'highlight_headline_font_size_small_screen', array(
     'label'   => 'Select Headline Size:',
-    'section' => 'bbp_resp_highlight',
+    'section' => 'responsive_tabs_highlight',
     'type'    => 'select',
     'settings'   => 'highlight_headline_font_size_small_screen',
     'choices'    => $font_size_array
@@ -292,4 +292,4 @@ $wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'body
  
 }
 
-add_action('customize_register', 'bbp_resp_theme_customizer');
+add_action('customize_register', 'responsive_tabs_theme_customizer');

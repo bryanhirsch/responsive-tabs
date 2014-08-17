@@ -9,7 +9,7 @@
 
 echo '<!--single.php -->';
 
-$bbp_resp_theme_options_array = get_option( 'bbp_resp_theme_options_array' ); 
+$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' ); 
 
 // set bbpress switch
 $bbpress_switch = 0;

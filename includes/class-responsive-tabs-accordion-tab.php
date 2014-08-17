@@ -1,10 +1,10 @@
 <?php
 /*
-* included in child theme settings within bbp_resp_child_theme_settings class definition
+* included in child theme settings within responsive_tabs_child_theme_settings class definition
 *
 */
 
-class bbp_resp_accordions_tab {
+class responsive_tabs_accordions_tab {
 
    	public function print_notes()
     	{
@@ -12,14 +12,14 @@ class bbp_resp_accordions_tab {
 	}
 
 } // close class
-class bbp_resp_accordion_tab{
+class responsive_tabs_accordion_tab{
 
 	public function __construct()
 	{	
     		add_action( 'admin_init', array( $this, 'accordion_tab_init' ) );
 
-		global $bbp_resp_theme_options;
-		$this->options = $bbp_resp_theme_options->theme_options;
+		global $responsive_tabs_theme_options;
+		$this->options = $responsive_tabs_theme_options->theme_options;
      	}
 
 
@@ -35,14 +35,14 @@ class bbp_resp_accordion_tab{
             'accordion_settings', // ID
             'Accordion settings', // Title
             array( $this, 'accordion_settings_info' ), // Callback
-            'bbp_resp_accordion_options' // Page
+            'responsive_tabs_accordion_options' // Page
         ); 
 
       add_settings_field(
             'accordion_posts', 
             'Posts list:', 
             array( $this, 'accordion_posts_callback' ), 
-            'bbp_resp_accordion_options', 
+            'responsive_tabs_accordion_options', 
             'accordion_settings'
         ); 
 
@@ -54,8 +54,8 @@ class bbp_resp_accordion_tab{
 {
 
         /* note -- have to reference this explicitly here b/c accessing through :: operator */
-	global $bbp_resp_theme_options;
-	$new_input = $bbp_resp_theme_options->theme_options;
+	global $responsive_tabs_theme_options;
+	$new_input = $responsive_tabs_theme_options->theme_options;
 
 
       if( isset( $input['accordion_posts'] ) )
@@ -83,7 +83,7 @@ print "This setting expects a list of posts, page or topics, referenced by ID nu
 public function accordion_posts_callback()
 {
         printf(
-            '<textarea type="text" cols="80" rows="3"  id="accordion_posts" name="bbp_resp_theme_options_array[accordion_posts]">%s </textarea>',
+            '<textarea type="text" cols="80" rows="3"  id="accordion_posts" name="responsive_tabs_theme_options_array[accordion_posts]">%s </textarea>',
             isset( $this->options['accordion_posts'] ) ? esc_textarea( $this->options['accordion_posts']) : ''
         );
 }
@@ -92,4 +92,4 @@ public function accordion_posts_callback()
 
 } // close class
 if (is_admin())
-$bbp_resp_accordion_tab = new bbp_resp_accordion_tab();
+$responsive_tabs_accordion_tab = new responsive_tabs_accordion_tab();

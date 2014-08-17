@@ -7,15 +7,15 @@
 
 
 <?php
-$bbp_resp_theme_options_array = get_option( 'bbp_resp_theme_options_array' ); 
+$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' ); 
 /*
 * accordion footer area
 *
 */
-if ((is_front_page() && $bbp_resp_theme_options_array['accordion_posts'] > '')) 
+if ((is_front_page() && $responsive_tabs_theme_options_array['accordion_posts'] > '')) 
 {
  	
-	$accordion_posts_array = explode(',',$bbp_resp_theme_options_array['accordion_posts']); 
+	$accordion_posts_array = explode(',',$responsive_tabs_theme_options_array['accordion_posts']); 
  	
         echo ' <div id = "accordion-wrapper">';
         foreach ($accordion_posts_array as $fold_content) {

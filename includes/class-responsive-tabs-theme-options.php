@@ -30,7 +30,7 @@
 
  
 
-class bbp_resp_theme_options
+class responsive_tabs_theme_options
 {
     /**
      * Start up
@@ -44,15 +44,15 @@ class bbp_resp_theme_options
 	        add_action ( 'admin_menu', array( $this, 'add_theme_page' ) );
 	        add_action ( 'admin_enqueue_scripts', array( $this, 'setup_color_picker') ) ;
 
-	        $this->theme_options = get_option('bbp_resp_theme_options_array');
+	        $this->theme_options = get_option('responsive_tabs_theme_options_array');
 
 	}
 
       	public function register_theme_options_setting()
     	{
 		register_setting(
-	            'bbp_resp_theme_options', // Option group
-	            'bbp_resp_theme_options_array', // Option name
+	            'responsive_tabs_theme_options', // Option group
+	            'responsive_tabs_theme_options_array', // Option name
 	             array( $this, 'sanitize' ) // Sanitize
         	);
 	}
@@ -60,7 +60,7 @@ class bbp_resp_theme_options
 	public function setup_color_picker() 
 	{
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'bbp_resp_login_bar',  get_stylesheet_directory_uri() . '/js/color_picker.js', array( 'wp-color-picker' ), false, true );
+		wp_enqueue_script( 'responsive_tabs_login_bar',  get_stylesheet_directory_uri() . '/js/color_picker.js', array( 'wp-color-picker' ), false, true );
 	}	
 
 	/**
@@ -74,7 +74,7 @@ class bbp_resp_theme_options
             'Theme Front Page Options', 
             'Front Page Options', 
             'manage_options', 
-            'bbp_resp_child_theme_options', 
+            'responsive_tabs_child_theme_options', 
             array( $this, 'create_admin_page' )
         );
 	}
@@ -100,7 +100,7 @@ class bbp_resp_theme_options
 		<?php foreach ($theme_options_tabs as $tab)
 			{
 			$nav_tab_active = $active_tab == $tab[0] ? 'nav-tab-active' : '';
-			echo '<a href="?page=bbp_resp_child_theme_options&tab=' . $tab[0] . '" class = "nav-tab ' . $nav_tab_active . '">' . $tab[1] . '</a>';
+			echo '<a href="?page=responsive_tabs_child_theme_options&tab=' . $tab[0] . '" class = "nav-tab ' . $nav_tab_active . '">' . $tab[1] . '</a>';
 			} 
 			?>
              	</h2> 	
@@ -113,8 +113,8 @@ class bbp_resp_theme_options
 		*  because admin_init hook has apparently already fired 
 		*/
 
-		settings_fields ( 'bbp_resp_theme_options') ;   
-		do_settings_sections( 'bbp_resp_' . $active_tab . '_options' );
+		settings_fields ( 'responsive_tabs_theme_options') ;   
+		do_settings_sections( 'responsive_tabs_' . $active_tab . '_options' );
 
                 submit_button('Save Changes (this tab only)'); 
  
@@ -132,7 +132,7 @@ class bbp_resp_theme_options
 		parse_str ($referrer['query']);
 		$active_tab = isset( $tab ) ? $tab : 'tabs';
 		// call the validation function from the class for that tab
-		$current_class = 'bbp_resp_' . $active_tab . '_tab'; 
+		$current_class = 'responsive_tabs_' . $active_tab . '_tab'; 
 
 		$options_to_be_saved = $current_class  :: sanitize($input);
 //		echo '<br> in final sanitize </br>';
@@ -143,4 +143,4 @@ class bbp_resp_theme_options
 }
 
 // construct the class!
-	$bbp_resp_theme_options = new bbp_resp_theme_options ();
+	$responsive_tabs_theme_options = new responsive_tabs_theme_options ();

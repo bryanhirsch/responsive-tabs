@@ -17,7 +17,7 @@ get_header();
 ?>
 
 <?php
-$bbp_resp_theme_options_array = get_option( 'bbp_resp_theme_options_array' ); 
+$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' ); 
 
 
 /*
@@ -61,19 +61,19 @@ echo '<div id="front-page-mobile-color-splash"></div>';
 * tabs area
 *
 */
-if (isset($bbp_resp_theme_options_array['tab_titles']) && isset($bbp_resp_theme_options_array['tab_content'])  )
+if (isset($responsive_tabs_theme_options_array['tab_titles']) && isset($responsive_tabs_theme_options_array['tab_content'])  )
 {
 /*
 * here make tabs work
 *
 */
 
-        $default_active_tab =  $bbp_resp_theme_options_array['tab_active'];
+        $default_active_tab =  $responsive_tabs_theme_options_array['tab_active'];
 	$active_tab = isset( $_GET[ 'frontpagetab' ] )  ? $_GET[ 'frontpagetab' ] : $default_active_tab;
 
-	$tab_titles = $bbp_resp_theme_options_array['tab_titles'];
-	$tab_content =  $bbp_resp_theme_options_array['tab_content'];
-	$user_cannot_edit_topics = $bbp_resp_theme_options_array['user_cannot_edit_topics'];
+	$tab_titles = $responsive_tabs_theme_options_array['tab_titles'];
+	$tab_content =  $responsive_tabs_theme_options_array['tab_content'];
+	$user_cannot_edit_topics = $responsive_tabs_theme_options_array['user_cannot_edit_topics'];
 
         
 	$tab_titles_array = explode(',',$tab_titles);
@@ -123,7 +123,7 @@ if (isset($bbp_resp_theme_options_array['tab_titles']) && isset($bbp_resp_theme_
 	if ($tab_content == "latest_clippings")
 	{
    echo '<div id = "front-page-post-list">';
-	   if($bbp_resp_theme_options_array['show_publications']) show_latest_news_clips();
+	   if($responsive_tabs_theme_options_array['show_publications']) show_latest_news_clips();
 	echo '</div>';
 	}
 	if ($tab_content == "archive_search")

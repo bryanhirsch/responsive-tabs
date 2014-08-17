@@ -5,9 +5,9 @@
 */
 
 
-add_action('customize_register', 'bbp_resp_theme_customizer');
+add_action('customize_register', 'responsive_tabs_theme_customizer');
 
-function bbp_resp_customize_css()
+function responsive_tabs_customize_css()
 {
 
     ?>   
@@ -51,10 +51,10 @@ function bbp_resp_customize_css()
 	         #highlight_headline	{font-size:  <?php echo get_theme_mod('highlight_headline_font_size_small_screen'); ?>;}
 	}
 
-	<?php $bbp_resp_theme_options_array = get_option( 'bbp_resp_theme_options_array' ); 	
+	<?php $responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' ); 	
 	echo '
 <!-- bbp_resp theme options css directly input via theme_customization_css.php-->
-' . $bbp_resp_theme_options_array['css_header']; ?>
+' . $responsive_tabs_theme_options_array['css_header']; ?>
         
          </style>
     <?php
@@ -62,24 +62,24 @@ function bbp_resp_customize_css()
 
 
 
-add_action( 'wp_head', 'bbp_resp_customize_css');
+add_action( 'wp_head', 'responsive_tabs_customize_css');
 
-function bbp_resp_output_header_scripts()
+function responsive_tabs_output_header_scripts()
 {
 	if (!is_user_logged_in()) 
 	{
-		$bbp_resp_theme_options_array = get_option( 'bbp_resp_theme_options_array' );
-		echo  $bbp_resp_theme_options_array['scripts_header'] ;
+		$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' );
+		echo  $responsive_tabs_theme_options_array['scripts_header'] ;
 	}
 }
 
-add_action( 'wp_head', 'bbp_resp_output_header_scripts',999999);
+add_action( 'wp_head', 'responsive_tabs_output_header_scripts',999999);
 
 
-function bbp_resp_output_footer_scripts()
+function responsive_tabs_output_footer_scripts()
 {       
-	$bbp_resp_theme_options_array = get_option( 'bbp_resp_theme_options_array' );
-	echo $bbp_resp_theme_options_array['scripts_footer'];
+	$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' );
+	echo $responsive_tabs_theme_options_array['scripts_footer'];
 }
 
-add_action( 'wp_footer', 'bbp_resp_output_footer_scripts');
+add_action( 'wp_footer', 'responsive_tabs_output_footer_scripts');

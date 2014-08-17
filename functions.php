@@ -13,7 +13,7 @@
 	include get_template_directory() . '/includes/responsive-tabs-widgets.php';
    
 	
-	$bbp_resp_theme_options_array = get_option( 'bbp_resp_theme_options_array' );		
+	$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' );		
 
 /*
 * admin 
@@ -52,7 +52,7 @@ if ( is_admin())
 * non admin style/script loads
 *
 */
-function bbp_resp_theme_setup() {
+function responsive_tabs_theme_setup() {
 
 	if ( !is_admin() ) {
 
@@ -63,9 +63,9 @@ function bbp_resp_theme_setup() {
 		 
 		wp_enqueue_script('resize');
 	}// !is_admin()items		
-}// bbp_resp_theme_setup
+}// responsive_tabs_theme_setup
 
-add_action('wp_enqueue_scripts', 'bbp_resp_theme_setup');
+add_action('wp_enqueue_scripts', 'responsive_tabs_theme_setup');
 
 
 /*
@@ -79,18 +79,18 @@ add_filter( 'bbp_no_breadcrumb', '__return_true' );
 *
 */
 
-function bbp_resp_register_menus() 
+function responsive_tabs_register_menus() 
 {
 	register_nav_menu('main-menu',__( 'Main Menu' ));
 }
 
-add_action( 'init', 'bbp_resp_register_menus' );
+add_action( 'init', 'responsive_tabs_register_menus' );
 
 /**
  * Register widgetized areas.
  *
  */
-function bbp_resp_widgets_init() {
+function responsive_tabs_widgets_init() {
 
 	register_sidebar( array(
 		'name' => 'Header Bar Widget',
@@ -199,7 +199,7 @@ register_sidebar( array(
 		'after_title' => '</h3>',
 	) );
 }
-add_action( 'widgets_init', 'bbp_resp_widgets_init' );
+add_action( 'widgets_init', 'responsive_tabs_widgets_init' );
 
 
 /*
