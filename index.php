@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: index
+ * File: index.php
  * Description: catchall template -- should never actually be accessed except for new taxonomies without appropriate support
  *
  * @package responsive-tabs

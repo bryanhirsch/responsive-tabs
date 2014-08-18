@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: breadcrumbs
+ * File: breadcrumbs.php
  * Description: template part used to display theme controlled breadcrumbs (or plugin breadcrumbs if present) on all except front pages
  *
  * @package responsive-tabs
@@ -40,18 +40,14 @@ echo '<div id="breadcrumbs">';
 	    			. '</a> &raquo; ';   	
 	   	}
 	   } elseif ( is_single() ) {
+			echo '<a href="/?frontpagetab=' . $responsive_tabs_theme_options_array['category_home'] .'">' . __( 'home', 'responsive-tabs' ) . '</a> &raquo; ';
 			$categories = get_the_category();
 			if( $categories ) {
-				$home_link =  '<a href="/?frontpagetab=' . $responsive_tabs_theme_options_array['category_home'] .'">' . __( 'home', 'responsive-tabs' ) . '</a> &raquo; ';
-				echo $home_link;
 				foreach( $categories as $category )	{
 						echo strtolower(get_category_parents( $category->term_id, true, ' &raquo; ' ));
 						break; /* selecting only the first found category for breadcrumbs */
 				}
 			}
-			else { 
-				echo $home_link;
-			} 
 		} elseif ( is_category() ) {
 			$home_link =  '<a href="/?frontpagetab=' . $responsive_tabs_theme_options_array['category_home'] .'">' . __( 'home', 'responsive-tabs' ) . '</a> &raquo; ';
 			echo $home_link;
@@ -63,11 +59,11 @@ echo '<div id="breadcrumbs">';
 			$monthnum = get_query_var( 'monthnum' );
 			if ( $monthnum > 0 ) {
 				$month_link = '<a href="'. get_month_link( $year, $monthnum ).'">'. $wp_locale->get_month( $monthnum )   . '</a> &raquo; ';
-			}
+			} else $month_link = '';
 			$day = get_query_var( 'day');
 			if ( $day > 0 ) {
 				$day_link = ' <a href="'. get_day_link($year, $monthnum, $day).'">'. $day. '</a> &raquo;  '; 		
-			}
+			} else $day_link = '';
 			echo $home_link. $year_link . $month_link . $day_link;		
 		} elseif ( is_author() ) {
 			$home_link =  '<a href="/?frontpagetab=' . $responsive_tabs_theme_options_array['author_home'] .'">' . __( 'home', 'responsive-tabs' ) . '</a> &raquo; ';

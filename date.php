@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: date
+ * File: date.php
  * Description: template used to display theme category search results
  *
  * @package responsive-tabs
@@ -42,7 +42,7 @@ $display_date = $display_month . $display_day . $year;
 		'order'           => 'DESC'
 	); ?>
 	<select name="archive-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
-	  	<option value=""><?php echo __( 'Select Month', 'responsive-tabs' ) ); ?></option> 
+	  	<option value=""><?php _e( 'Select Month', 'responsive-tabs' ); ?></option> 
 		<?php wp_get_archives ( $args ); ?>
 	</select>
 

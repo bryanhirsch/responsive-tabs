@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: 404
+ * File: 404.php
  * Description: Displayed when material not found
  *
  * @package responsive-tabs

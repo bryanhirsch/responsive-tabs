@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: author
+ * File: author.php
  * Description: Displayed for author archive searches
  *
  * @package responsive-tabs

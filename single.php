@@ -1,141 +1,143 @@
 <?php
 /*
-*
-* single.php
-* picked up for bbpress topics
-* http://bbpress.org/forums/topic/understanding-templating/
-*
-*/
+ * File: single.php
+ * Description: Display single post 
+ * 
+ * @package responsive-tabs
+ *
+ */
 
-echo '<!--single.php -->';
+/* assure that will die if accessed directly */ 
+defined( 'ABSPATH' ) or die( "No script kiddies please!" );
 
-$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' ); 
-
-// set bbpress switch
-$bbpress_switch = 0;
-if(class_exists('bbpress'))
-{
-	if(is_bbpress()) {$bbpress_switch = 1;} 
-}
-	$post_width = get_post_meta(get_the_id(), '_twcc_post_width', true);
-   if($post_width == 'extra_wide') {get_header('retina');}
-   else get_header();
-?>
-
-
-<div id="content-header">
-<?php
-get_template_part('breadcrumbs');
-
-if ( have_posts() ) : while (have_posts()) : the_post();	
-
-	// the_title(' <h1 class="post-title"> ', ' </h1> ');
-	?><h1>
-	<?php $comment_count = get_comments_number();
-	if($comment_count>0) printf( '%2$s<span class="post-response-count"> (' . _n( 'One Response)', '%1$s Responses)', $comment_count ) . '</span>',
-									number_format_i18n( $comment_count ), get_the_title() ); 
-	else the_title();?>
-	</h1>
-	</div>
+// note: no "not found" condition for single.php -- handled by 404.php
+while ( have_posts() ) : the_post();	
 	
-	<?php
+	// set bbpress switch
+	$bbpress_switch = 0;
+	if( class_exists( 'bbpress' ) ) {
+		$bbpress_switch = ( is_bbpress() ) ? 1 : 0; 
+	}
+	// get theme supported custom field identifying wide posts (supports tablepress plugin and any wide format)
+	$post_width = get_post_meta( get_the_id(), '_twcc_post_width', true );
+	// http://codex.wordpress.org/Template_Tags/the_content (override the more logic to display whole post/topic in this view)	
+	global $more;
+	$more = 1;  
 
-	if($post_width == 'wide') {echo '<div id="full-width-content-wrapper">';} 
-	elseif ($post_width == 'extra_wide') {echo '<div id="retina-full-width-content-wrapper">';}
-	else {echo '<div id="content-wrapper">';};
+	// get header depending on post width
+	if( $post_width == 'extra_wide' ) {
+		get_header( 'retina' );
+	} else {
+		get_header();
+	}
+		
+	// content title
+	?><!--single.php -->
+	<div id="content-header">
+		<?php get_template_part( 'breadcrumbs' ); ?> 
+		<h1><?php 
+			$comment_count = get_comments_number();
+			if ( $comment_count > 0 ) {
+				printf( '%1$s<span class="post-response-count"> (' . _n( 'One Response', '%2$d Responses', $comment_count, 'responsive-tabs' ) . ')</span>',
+										get_the_title(), number_format_i18n( $comment_count ) );
+			} else {
+				the_title();
+			}?>
+		</h1>
+	</div><?php
+	
+	// set up content wrapper based on post width
+	if ( $post_width == 'wide' ) {
+		echo '<div id="full-width-content-wrapper">';
+	} elseif ( $post_width == 'extra_wide' ) {
+		echo '<div id="retina-full-width-content-wrapper">';
+	} else {
+		echo '<div id="content-wrapper">';
+	};
 	echo '<!--division wraps the non-sidebar, non-footer content-->';
 	
-	// display meta information if not in bbpress
+		// display meta information, comments and pagination if not in bbpress
+		if ( ! $bbpress_switch ) { ?>
+			<div id = "wp-single-content">   
+				<div class = "post-info"> <?php 
+					_e( 'By', 'reponsive-tabs' ) ?> 
+						<span class="post-author">
+							<?php $guest_author = get_post_meta( get_the_ID(), 'twcc_post_guest_author', true );
+								if ( $guest_author === '' ){ // supports twcc frontend-post-no-spam plugin
+									the_author_posts_link();				
+								} else {
+									echo esc_html( $guest_author ); 
+								}
+						?></span>, <?php
+					_e( 'on', 'responsive-tabs' ); 
+		 				echo '<a href="'  .  get_month_link( get_post_time( 'Y' ), get_post_time( 'm' ) ) . '"' . 
+							'title = "'  .  __( 'View all posts from ', 'responsive-tabs' ) . get_post_time( 'F', false, null, true ) . ' ' . get_post_time( 'Y', false, null, true )  . '"> ' .
+							 get_post_time('F', false, null, true )  . 
+						'</a> ' .
+						'<a href="'  .  get_day_link( get_post_time( 'Y' ), get_post_time( 'm' ), get_post_time( 'j' ) ) . '"' . 
+							'title = "'  .  __( 'View posts from same day', 'responsive-tabs')  . '">' .
+							get_post_time('jS', false, null, true )  . 
+						'</a>, ' . 
+			      	'<a href="'  .  get_year_link( get_post_time( 'Y' ) )  . '"' . 
+			      		'title = "'  .  __( 'View all posts from ', 'responsive-tabs' ) . get_post_time( 'Y' )   . '">' .
+			      		get_post_time( 'Y' )  . 
+			      	'</a>'; ?> 	
+					<span class= "post-cats">
+						<?php _e( 'In', 'responsive-tabs' ) ?>: 
+							<?php the_category(', '); ?>.<?php  
+						the_tags(" <?php __( 'Tagged', 'responsive-tabs' ) ?>: ", ', ','.'); ?>
+					</span>
+				</div><!-- post-info --> <?php
+				
+				the_content();
+			
+				if ( get_comments_number() > 2 && comments_open() ) { // jump to bottom of long comments list
+	  				echo '<h4><a href="#comment">Make a comment</a></h4>';
+				}
 
+				edit_post_link( 'Edit Post #' . get_the_id(), '<br />', ''); ?>
+				
+			</div><!-- wp-post-content --><?php
+			
+			if ( comments_open() || get_comments_number() ) {			
+				comments_template();
+			}
 	
-	// display content for single or bbpress (which does own list handling); display excerpts for post lists
-		global $more;
-		$more = 1;  // http://codex.wordpress.org/Template_Tags/the_content (override the more logic to display whole post/topic in this view)
-		if (!$bbpress_switch):
-			echo '<div id = "wp-single-content">';   
-			
-   if (!$bbpress_switch)
-	{	
-		?> <div class = "post-info">By <span class="post-author">
-			<?php $guest_author = get_post_meta(get_the_ID(), 'twcc_post_guest_author',true );
-				if ($guest_author === '') 
-					{
-						the_author_posts_link();				
-					}
-				else 
-					{
-						echo $guest_author; 
-					}
-		?></span>, on 
-		<?php echo '<a href="'.get_month_link(get_post_time('Y'), get_post_time('m')).'" title = "View all posts from '. get_post_time('F') . ' ' . get_post_time('Y') .'">'. get_post_time('F') . '</a> ' .
-			'<a href="'.get_day_link(get_post_time('Y'), get_post_time('m'), get_post_time('j')).'" title = "View posts from same day">'. get_post_time('jS') . '</a>, ' .
-	      '<a href="'.get_year_link(get_post_time('Y')). '" title = "View all posts from '. get_post_time('Y')  .'">' . get_post_time('Y') . '</a>.'; ?> 	
-		<span class= "post-cats">
-			In: <?php the_category(', '); ?>.<?php  
-			the_tags(" Tagged: ", ', ','.'); ?></span></div> <?php
-	}			
-			
-			
-			the_content();
-			
-			if ( get_comments_number() > 2 && comments_open() ) :
-  				echo '<h4><a href="#comment">Make a comment</a></h4>';
-			endif;
-
-			edit_post_link('Edit Post #' . get_the_id(), '<br />', ''); 
-			echo '</div>';
-		else: the_content();
-		endif;
-
-	//display non-bbpress foot matter for posts and pages
-   if (!$bbpress_switch)
-	{
-		comments_template();
-		// wp_list_comments();  
-
-		?> <div id="previous-post-link"> <?php
-		previous_post_link('<strong>&laquo; %link </strong>', 'previous post');  
-		?> </div> <?php
-
-		?> <div id="next-post-link">  <?php
-		next_post_link('<strong>%link &raquo; </strong>', 'next post'); 
-		?> </div> <?php
-		echo '<div class="horbar_clear_fix"></div>';
-	}	
-	// close the main loop		
-	endwhile; 
+			?> <div id="previous-post-link"> <?php
+			previous_post_link( '<strong>&laquo; %link </strong>', __( 'previous post', 'responsive-tabs' ) );  
+			?> </div> <?php
 	
-		
-	// handle not found conditions		
-	else:   
-			?>
-	<h1>No posts found matching your search.<h1>
-	<?php
-	
-endif;
+			?> <div id="next-post-link">  <?php
+			next_post_link( '<strong>%link &raquo; </strong>', __( 'next post', 'responsive-tabs' ) ); 
+			?> </div> 
+			
+			<div class="horbar-clear-fix"></div><?php	
+					
+		} else { // bbpress handles all its own meta information and replies listing 
+			the_content(); 
+		}
+	?></div><!-- content-wrapper --><?php // note start immediately to create space in inline-block series
+endwhile; //close the main loop (single entry)  
 
-?> </div><?php // note start immediately to create space in inline-block series
+// show post side bar if not using a wide format
 
-// show post side bar for all forms of post list (no page sidebar)
-
-if(!$bbpress_switch && ($post_width == '' || $post_width == NULL || $post_width == 'normal'))
+if( ! $bbpress_switch && is_active_sidebar( 'post_sidebar' ) && ($post_width == '' || $post_width == NULL || $post_width == 'normal'))
 {	
 	echo '<div id="right-sidebar-wrapper">';
-	if ( dynamic_sidebar('post_sidebar') ) : else : endif;	
+		dynamic_sidebar( 'post_sidebar' ); 
+		wp_meta();	// hook for bottom of sidebar content
 	echo '</div>';
 }
-
 // show post side bar for all forms of bbpress
-elseif ($bbpress_switch)
+elseif ( $bbpress_switch && is_active_sidebar ( 'bbpress_sidebar' ) )
 {	
 	echo '<div id="right-sidebar-wrapper">';
-	if ( dynamic_sidebar('bbpress_sidebar') ) : else : endif;	
+		dynamic_sidebar( 'bbpress_sidebar' ); 
+		wp_meta(); // hook for bottom of sidebar content	
 	echo '</div>';
 }
 
-?><?php  
-
- // empty bar to clear formatting -->
-?><div class="horbar_clear_fix"></div><?php 
+// empty bar to clear formatting -->
+?><div class="horbar-clear-fix"></div><?php 
  
 get_footer();

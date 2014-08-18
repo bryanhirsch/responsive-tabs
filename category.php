@@ -1,6 +1,6 @@
 <?php
 /*
- * Template Name: category
+ * File: category.php
  * Description: template used to display theme category search results
  *
  * @package responsive-tabs

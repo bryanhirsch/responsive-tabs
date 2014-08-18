@@ -1,61 +1,57 @@
 <?php
 /*
-*
-* page.php -- note, all calls to bbpress are intercepted first by forum.php
-* 
-* http://bbpress.org/forums/topic/understanding-templating/
-*
-*/
+ * File: page.php
+ * Description: Display single page 
+ *
+ * @package responsive-tabs
+ *
+ */
+
+/* assure that will die if accessed directly */ 
+defined( 'ABSPATH' ) or die( "No script kiddies please!" );
+
 get_header();
-echo '<!--page.php -->';
 
+while ( have_posts() ) : the_post(); // no not found condition -- goes to 404.php ?>	
 
+	<!-- responsive-tabs 	page.php -->
+	<div id="content-header">
 
-
-
-?><div id="content-header"><?php
-get_template_part('breadcrumbs');
-
-if ( have_posts() ) : while (have_posts()) : the_post();	
+		<?php get_template_part( 'breadcrumbs' ); ?>
    	
-		the_title(' <h1 class="post-title"> ', ' </h1> ');
+		<?php the_title( '<h1 class="post-title">', ' </h1> '); ?>
 	
-		?></div>
-		<div id="content-wrapper">   <?php
-
-	
-
+	</div>
 		
+	<div id="content-wrapper">   
+
+		<?php // http://codex.wordpress.org/Template_Tags/the_content (override the more logic to display whole post/topic in this view)
 		global $more;
-		$more = 1;  // http://codex.wordpress.org/Template_Tags/the_content (override the more logic to display whole post/topic in this view)
+		$more = 1; 
+		?>
+		<div id = "wp-single-content">
+			<?php the_content(); ?>
+			<?php edit_post_link( __( 'Edit Page', 'responsive-tabs') , '<p>', '</p>' ); ?> 
+		</div>
 		
-		echo '<div id = "wp-single-content">';
-		?><div class = "post-info">Posted on <?php the_time('F jS, Y'); ?> by <?php the_author_posts_link();?> </div><?php
-			the_content();
-			edit_post_link('Edit Page', '<p>', '</p>'); 
-		echo '</div>';
+		<?php if ( comments_open() || get_comments_number() ) {			
+			comments_template();
+		}?>
 		
-	
-	// close the main loop		
-	endwhile; 
-	
-		
-	// handle not found conditions		
-	else:   
-			?>
-	<h1>No posts found matching your search.<h1>
-	<?php
-	
-endif;
+	</div><?php // close content-wrapper and start php immediately so as to not create space in inline-block series
+			
+endwhile; // close the main loop 
 
-?> </div><?php // note start immediately to create space in inline-block series
+
 
 // show page sidebar
+if( is_active_sidebar( 'page_sidebar' ) ) {
 	echo '<div id="right-sidebar-wrapper">';
-		if ( dynamic_sidebar('page_sidebar') ) : else : endif;	
+		dynamic_sidebar( 'page_sidebar' );
+		wp_meta();	
 	echo '</div>';
-
+}
  // empty bar to clear formatting -->
-?><div class="horbar_clear_fix"></div><?php 
+?><div class="horbar-clear-fix"></div><?php 
  
 get_footer();

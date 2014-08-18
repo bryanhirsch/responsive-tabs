@@ -1,71 +1,105 @@
 <?php
-// multiple post list handler 
+/*
+ * File: post-list.php
+ * Description: template part used to display list of posts in full width mode -- other templates handle header and page title 
+ *
+ * @package responsive-tabs
+ *
+ */
+
+/* assure that will die if accessed directly */ 
+defined( 'ABSPATH' ) or die( "No script kiddies please!" );
+
 if ( have_posts() ) { 
 
-echo '<ul class="post-list">' . 
-	  '<li class = "pl-odd"><ul class = "pl-headers"><li class="pl-post-title">Topic (comment count)</li><li class = "pl-post-author">Started by</li><li class = "pl-post-date-time">Date</li></ul></li>';
+	/* post list headers -- echoing to avoid white spaces in inline-block styling*/ 
+
+	echo '<!-- responsive-tabs post-list.php -->' . 
+	'<ul class="post-list">' . 
+	  '<li class = "pl-odd">' .
+	  		'<ul class = "pl-headers">' .
+	  			'<li class="pl-post-title">' . __( 'Topic (comment count)', 'responsive-tabs' ) . '</li>' .
+	  			'<li class = "pl-post-author">' . __( 'Started by', 'responsive-tabs' ) . '</li>' .
+	  			'<li class = "pl-post-date-time">' . __( 'Date', 'responsive-tabs') .'</li>' .
+	  		'</ul>' .
+	  	'</li>'; 
+
+	/* post list */ 
+	$count = 1; 
+	while (have_posts()) : the_post();	
+		
+		$count = $count+1;
+		$row_class = ( $count % 2 == 0 ) ? "pl-even" : "pl-odd";
+		if ( is_sticky() && is_home() ) {
+			$row_class .= " sticky";		
+		}
+		$post_type = get_post_type();	
+      
+      			
+		if( $post_type == "post" || $post_type == "page" ) { 
+			$link 	= get_permalink();
+  			$title 	= get_the_title();
+  			$excerpt	= get_the_excerpt(); 
+		} elseif ( $post_type == 'twcc_clipping' ) { /* supports inclusion of twcc clippings plugin content in consolidated search */ 
+			$link 	= get_post_meta( get_the_id(), '_clipping_link', true );
+			$title 	= _e( 'News Item: ', 'responsive-tabs' ) . get_the_title(); 
+			$excerpt	= get_the_content();
+		}
+					
+		$guest_author = get_post_meta( get_the_ID(), 'twcc_post_guest_author', true ); /* supports inclusion of twcc front-end-post-no-spam plugin author information */
+		if ($guest_author === '')	{
+			$author_entry = 	'<li class="pl-post-author"><a href="'. get_author_posts_url( get_the_author_meta( 'ID' ) )  . '" title = "' . __('View all posts by', 'responsive-tabs') . get_the_author_meta( 'display_name' ) .'">' . get_the_author_meta('display_name') . '</a></li>';
+		} else {
+			$author_entry = '<li class="pl-post-author">'. esc_html( $guest_author ) . '</li>'; 
+		}
+		/* output list item -- echoing to show structure and avoid white spaces in inline-block styling */
+		echo '<li class ="' . $row_class .'">' .
+			'<ul class="pl-post-item">' . 			
+				'<li class="pl-post-title">' .
+					'<a href="'  .  $link  . '" rel="bookmark" ' . 
+						'title="'  .  __( 'View item', 'responsive-tabs' )  . '"> '  .  
+						$title . ' ('. get_comments_number()  . ')' .
+					'</a>' . 
+				'</li>' .
+				$author_entry  . 
+				'<li class="pl-post-date-time">' .
+					'<a href="'  .  get_month_link( get_post_time( 'Y' ), get_post_time( 'm' ) ) . '"' . 
+						'title = "'  .  __( 'View all posts from ', 'responsive-tabs' ) . get_post_time( 'F', false, null, true ) . ' ' . get_post_time( 'Y', false, null, true )  . '"> ' .
+						 get_post_time('F', false, null, true )  . 
+					'</a> ' .
+					'<a href="'  .  get_day_link( get_post_time( 'Y' ), get_post_time( 'm' ), get_post_time( 'j' ) ) . '"' . 
+						'title = "'  .  __( 'View posts from same day', 'responsive-tabs')  . '">' .
+						get_post_time('jS', false, null, true )  . 
+					'</a>, ' . 
+		      	'<a href="'  .  get_year_link( get_post_time( 'Y' ) )  . '"' . 
+		      		'title = "'  .  __( 'View all posts from ', 'responsive-tabs' ) . get_post_time( 'Y' )   . '">' .
+		      		get_post_time( 'Y' )  . 
+		      	'</a>' .
+		      '</li>' .
+	      '</ul>' .
+			'<div class="pl-post-excerpt">' .
+				$excerpt . '<br />' . 
+				'<a href="' . $link .'" rel="bookmark"' . 
+					'title="'. __( 'Read the rest of this post', 'responsive_tabs' ) . '">' .
+					__( 'Read More', 'responsive-tabs' ) . '&raquo;' . 
+				'</a></div>' .         
+	 '</li>
+	 ';
 	
-$count = 1; 
-while (have_posts()) : the_post();	
-	$count = $count+1;
-	if($count % 2 == 0){$row_class = "pl-even";} else {$row_class = "pl-odd";} 
-			$post_type = get_post_type();	
-         // note that clippings are note excluded from searches.			
-			if($post_type == "post" || $post_type == "page") 
-			  { 
-				  $link = get_permalink();
-	  			  $title = get_the_title();
-	  			  $excerpt = get_the_excerpt(); 
-				}
-				elseif ($post_type == 'twcc_clipping') 
-				{
-					$link = get_post_meta(get_the_id(), '_clipping_link',true);
-					$title = 'News Item: '. get_the_title(); 
-					$excerpt = get_the_content();
-				}
-				
-			$guest_author = get_post_meta(get_the_ID(), 'twcc_post_guest_author',true );
-			if ($guest_author === '') 
-				{
-					$author_entry = 	'<li class="pl-post-author"><a href="'. get_author_posts_url( get_the_author_meta( 'ID' ) )  . '" title = "View all posts by '. get_the_author_meta('display_name')  .'">' . get_the_author_meta('display_name') . '</a></li>';
-				}
-			else 
-				{
-					$author_entry = '<li class="pl-post-author">'. $guest_author . '</li>'; 
-				}
-				  
-			echo '<li class ="' . $row_class . '"><ul class="pl-post-item">' . 			
-			'<li class="pl-post-title"><a href="'. $link .'" rel="bookmark" title="View item">' . $title . ' ('. get_comments_number().')' . '</a></li>' .
-			$author_entry .
-			'<li class="pl-post-date-time"><a href="'.get_month_link(get_post_time('Y'), get_post_time('m')).'" title = "View all posts from '. get_post_time('F') . ' ' . get_post_time('Y') .'">'. get_post_time('F') . '</a> ' .
-			'<a href="'.get_day_link(get_post_time('Y'), get_post_time('m'), get_post_time('j')).'" title = "View posts from same day">'. get_post_time('jS') . '</a>, ' .
-	      '<a href="'.get_year_link(get_post_time('Y')). '" title = "View all posts from '. get_post_time('Y')  .'">' . get_post_time('Y') . '</a></li>'.
-         '</ul>' .
-			'<div class="pl-post-excerpt">' . $excerpt . ' <br /> <a href="' . $link .'" rel="bookmark" title="Read the rest of this post">Read More &raquo; </a></div>'.         
-         '</li>';
+	endwhile; ?> 
+	
+	</ul> <!-- post-list -->
 
- 	endwhile; 
-
-	echo '</ul>'; // post-list
-
-	// show multipost pagination links
-
-	?> 
 	<div id = "next-previous-links">
-	<div id="previous-posts-link"> <?php
-	previous_posts_link('<strong>&laquo; Newer Entries </strong>');
-	?> </div> <?php
-	
-	?> <div id="next-posts-link">  <?php
-	next_posts_link('<strong>Older Entries &raquo; </strong>');
-	?> </div>
+		<div id="previous-posts-link"><?php
+			previous_posts_link('<strong>&laquo; Newer Entries </strong>');
+		?> </div> 
+		<div id="next-posts-link">  <?php
+			next_posts_link('<strong>Older Entries &raquo; </strong>');
+		?> </div>
 	</div> <?php
-	}	
-	// handle not found conditions		
-	else{   
-			?>
-	<div id="not-found">
-	<h3>No posts found matching your search.</h3>
-	</div>
-	<?php
-	}
+}	else {   
+	?>	<div id="not-found">
+		<h3>No posts found matching your search.</h3>
+	</div><?php
+}

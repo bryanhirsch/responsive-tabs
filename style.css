@@ -478,6 +478,10 @@ ol.commentlist li.even
  	content: ": ";  
 }
 
+.bypostauthor {
+   /* not styled */ 
+}
+
 .says
 {
 	display: none;
@@ -935,6 +939,15 @@ ul.post-list li.pl-odd
 ul.post-list li.pl-even
 {background: #fafafa;}
 
+ul.post-list li.sticky
+{
+	border-left: 8px solid #333;
+}
+
+.sticky {
+	/* not styled except in ul.post-list */
+}
+
 ul.pl-headers {
 	font-size: 14px;
 	font-weight: 700;
@@ -960,15 +973,6 @@ li.pl-post-title
 	vertical-align: top;	
 	width: 60%; 	
 	}
-
-
-li.pl-post-title
-{
-	display: inline-block;
-	vertical-align: top;	
-	width: 60%; 	
-	}
-
 
 li.pl-post-author
 {
