@@ -1,41 +1,43 @@
 <?php
 /*
-*
-* date.php
-*
-*/
+ * Template Name: search
+ * Description: template used to display theme category search results
+ *
+ * @package responsive-tabs
+ *
+ */
+
+/* assure that will die if accessed directly */ 
+defined( 'ABSPATH' ) or die( "No script kiddies please!" );
+
 get_header();
 
-echo '<!-- search.php -->';
 /* set up title for author search */
-
 global $wp_query;
 $total_results = $wp_query->found_posts;
 $query_vars = $wp_query->query_vars;
-
-?><?
-
 ?>
+
+<!-- responsive-tabs search.php -->
 <div id = "content-header">
-<?php get_template_part('breadcrumbs'); ?> 
- <h1>Search for "<?php echo $query_vars['s']; ?>" found <?php echo $total_results; ?> posts.</h1>
-<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
-	<label>
-		<input type="search" class="search-field" placeholder="Search …" value="<?php echo $query_vars['s']; ?>" name="s"  />
-	</label>
-	<input type="submit" class="search-submit" value="Redo Search" /></h1>
-</form>
+	
+	<?php get_template_part( 'breadcrumbs' ); ?> 
+	
+ 	<h1> <?php printf( __( 'Search for "%1$s" found %2$s posts.' ), $query_vars['s'], $total_results ) ?></h1>
+ 	
+	<form role="search" method="get" class="search-form" action="<?php echo home_url( '/' ); ?>">
+		<input type="search" class="search-field" placeholder="<?php _e( 'Search', 'responsive-tabs') ?> …" value="<?php echo $query_vars['s']; ?>" name="s" />
+	</form>
 
-</div>
-<?php  echo 	'<div id = "post-list-wrapper">';
+</div> <!-- content-header -->   
 
-// multiple post handler 
-get_template_part('post','list');
-echo '</div>'; 
-?> 
+<div id = "post-list-wrapper">
 
+	<?php get_template_part( 'post', 'list' ); ?>
+	
+</div> <!-- post-list-wrapper-->
 	
  <!-- empty bar to clear formatting -->
-<div class="horbar_clear_fix"></div><?php 
- 
-get_footer();
+<div class="horbar_clear_fix"></div>
+
+<?php get_footer();

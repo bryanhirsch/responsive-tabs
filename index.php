@@ -1,28 +1,34 @@
 <?php
 /*
-*
-* date.php
-*
-*/
+ * Template Name: index
+ * Description: catchall template -- should never actually be accessed except for new taxonomies without appropriate support
+ *
+ * @package responsive-tabs
+ *
+ */
+
+/* assure that will die if accessed directly */ 
+defined( 'ABSPATH' ) or die( "No script kiddies please!" );
+
 get_header();
 
-echo '<!-- index.php this template should never actually be accessed-->';
+?><!-- responsive-tabs index.php -->;
 
-?>
 <div id = "content-header">
-<?php get_template_part('breadcrumbs'); ?> 
- <h1><?php 
-echo 'Displaying Posts'; </h1>
-</div>
-<?php echo 	'<div id = "post-list-wrapper">';
 
-// multiple post handler 
-get_template_part('post','list');
-echo '</div>';
-?> 
+	<?php get_template_part('breadcrumbs'); ?> 
 
+ 	<h1><?php _e( 'Displaying Posts', 'responsive-tabs' ); </h1>
+
+</div> <!-- content-header -->   
+
+<div id = "post-list-wrapper">
+
+	<?php get_template_part( 'post', 'list' ); ?>
+	
+</div> <!-- post-list-wrapper-->
 	
  <!-- empty bar to clear formatting -->
-<div class="horbar_clear_fix"></div><?php 
- 
-get_footer();
+<div class="horbar_clear_fix"></div>
+
+<?php get_footer();
