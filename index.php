@@ -18,7 +18,7 @@ get_header();
 
 	<?php get_template_part('breadcrumbs'); ?> 
 
- 	<h1><?php _e( 'Displaying Posts', 'responsive-tabs' ); </h1>
+ 	<h1><?php _e( 'Displaying Posts', 'responsive-tabs' ); ?> </h1>
 
 </div> <!-- content-header -->   
 
