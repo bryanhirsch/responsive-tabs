@@ -8,7 +8,7 @@
 */ 
 
 window.onresize = OnWindowResize;
-window.onload = SetupBBPressResponsive; 
+window.onload = ResponsiveTabs; 
 
 function TestSupportCalc(){
 	var tc = document.getElementById ( "calctest" ); 
@@ -46,7 +46,7 @@ function ResetSideMenu()
 	
 	var sm  = document.getElementById ( "side-menu" ); 
 	var mb	= document.getElementById ( "side-menu-button");
-	var hbs = document.getElementById ( "bbp-resp-header-bar-content-spacer");
+	var hbs = document.getElementById ( "header-bar-content-spacer");
 	
 	mb.innerHTML = "MENU";
 	
@@ -68,7 +68,7 @@ function ResetSideMenu()
 
 
 
-function SetupBBPressResponsive()
+function ResponsiveTabs()
 {
 
 	AccordionInit();
@@ -96,7 +96,7 @@ function ResizeMajorContentAreas()
 	var innerww = document.body.clientWidth; // note window.innerWidth seems to be less predictable wrt scroll bars  
 
 	var wr  = document.getElementById ( "wrapper" );
-	var hb = document.getElementById ( "bbp-resp-header-bar");
+	var hb = document.getElementById ( "header-bar");
 
 	wrapperwidth = Math.min(innerww - 120, 1460);
 	wr.style.width = wrapperwidth + "px"; // fix at appropriate width 

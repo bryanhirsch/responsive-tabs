@@ -75,7 +75,7 @@ else
 	?><?php  
 	
 	 // empty bar to clear formatting -->
-	?><div class="horbar_clear_fix"></div><?php 
+	?><div class="horbar-clear-fix"></div><?php 
 	 
 	get_footer();
 	

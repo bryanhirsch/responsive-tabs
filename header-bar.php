@@ -1,37 +1,47 @@
 <?php 
 /*
-*  header_bar.php
-*  displays menu/identity header bar that carries across all theme pages
+*  File: header-bar.php
+*  Description: displays menu/identity header bar that carries across all theme pages
 *
+* @package responsive-tabs
 */
-?>
-	<div id="bbp-resp-header-bar-spacer"></div>
- 	<div id="bbp-resp-header-bar-wrapper"  class = "
-				<?php if (is_admin_bar_showing())
-					{echo "admin_bar_showing";}
-				      else 
-					{echo "no_admin_bar";}
-				?>"> 	
- 	<div id="bbp-resp-header-bar">
-		<div id = "bbp-resp-header-bar-content-spacer"></div>
-			<button id = "side-menu-button" onclick = "toggle_side_menu()">MENU</button>
 
-			<div id = "header_bar_widget_wrapper">
-			<?php if ( dynamic_sidebar('header_bar_widget') ) : else : endif; ?>
-			</div>
+/* assure that will die if accessed directly */ 
+defined( 'ABSPATH' ) or die( "No script kiddies please!" );
+?>
+<!-- responsive-tabs header-bar.php -->
+<div id="header-bar-spacer"></div>
+<div id="header-bar-wrapper"  class = "
+	<?php if ( is_admin_bar_showing()) {
+		echo 'admin-bar-showing';
+	} else { 
+		echo 'no-admin-bar';
+	}
+	?>"> 	
+ 	<div id="header-bar">
+		<div id = "header-bar-content-spacer"></div>
+			<button id = "side-menu-button" onclick = "toggle_side_menu()"><?php _e( 'MENU', 'responsive-tabs' ); ?></button>
+
+			<?php if ( is_active_sidebar ( 'header_bar_widget' ) ) { ?>	
+				<div id = "header-bar-widget-wrapper">
+					<?php dynamic_sidebar( 'header_bar_widget' );  ?>
+				</div>
+			<?php } ?>
 			
-			<ul id = "bbp-site-info-wrapper">
+			<ul id = "site-info-wrapper">
 				<li class="site-title site-title-long">
-					 <a href="<?php  echo( home_url( '/' ) ) ?>" title="Go to front page">
-					 <?php bloginfo( 'name' ) ?> </a>
+					 <a href="<?php echo( home_url( '/' ) ); ?>" title="<?php _e( 'Go to front page', 'responsive-tabs' ); ?>">
+					 <?php esc_html( bloginfo( 'name' ) ); ?> </a>
 				</li>
 				<li class = "site-title site-title-short">
-					 <a href="<?php  echo( home_url( '/' ) ) ?>" title="Go to front page">
-					 <?php echo get_theme_mod('site_short_title'); ?> </a>
+					 <a href="<?php echo( home_url( '/' ) ); ?>" title="<?php _e( 'Go to front page', 'responsive-tabs' ); ?>">
+					 <?php echo esc_html( get_theme_mod( 'site_short_title' ) ); ?> </a>
 				</li>
 				<li class="site-description"> 
-					<?php bloginfo( 'description' ) ?>
+					<?php esc_html( bloginfo( 'description' ) ); ?>
 				</li>
 			</ul>
-			 <div class="horbar_clear_fix"></div>  
-       </div></div><!-- bbp-resp-header-bar and wrapper-->
+			<div class="horbar-clear-fix"></div>  
+	</div><!-- header-bar -->
+</div><!-- header-bar wrapper-->
+<?php

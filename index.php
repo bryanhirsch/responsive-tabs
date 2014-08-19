@@ -29,6 +29,6 @@ get_header();
 </div> <!-- post-list-wrapper-->
 	
  <!-- empty bar to clear formatting -->
-<div class="horbar_clear_fix"></div>
+<div class="horbar-clear-fix"></div>
 
 <?php get_footer();

@@ -52,7 +52,7 @@ if ($highlight_headline > '    ' || $highlight_subhead > '    ' )
 		          </div>';
 		}        
 	echo '</div>
-	<div class = "horbar_clear_fix"></div>'; 
+	<div class = "horbar-clear-fix"></div>'; 
 }
 	
 echo '<div id="front-page-mobile-color-splash"></div>';
@@ -138,7 +138,7 @@ if (isset($responsive_tabs_theme_options_array['tab_titles']) && isset($responsi
 				if ( dynamic_sidebar('home_bulk_widget') ) : else : endif;
 			echo '</div>';
 			
-		echo '<div class="horbar_clear_fix"></div>' .
+		echo '<div class="horbar-clear-fix"></div>' .
 		'</div>'; // close home_widget_area
 	}
 	else if($tab_content == "home_widget_2")

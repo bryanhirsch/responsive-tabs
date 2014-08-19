@@ -301,7 +301,7 @@ function twcc_save_meta_box($post_id, $post)
    if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
        return;
 
-   if('page' == $_POST['post_type'])
+   if('page' == $_POST['post_type']) /************** notice error undefined index on this line ********/
    {
        if(!current_user_can('edit_page', $post_id))
            return;
