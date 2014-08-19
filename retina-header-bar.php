@@ -21,14 +21,14 @@ defined( 'ABSPATH' ) or die( "No script kiddies please!" );
 	?>"> 
 	
  	<div id="header-bar">
-			<a href = "<?php echo home_url( '/'); ?>"><button  id = "home-button"><?php _e( 'HOME' , 'responsive-tabs' ); ?></button></a>
-			<ul id = "site-info-wrapper">
-				<li class = "site-title">
-					 <a href="<?php  echo home_url( '/' ); ?>" title="<?php _e( 'Go to front page', 'responsive-tabs' ); ?>">
-					 	<?php echo get_theme_mod('site_short_title'); ?> -- <?php _e( 'Full Width View', 'responsive-tabs' ); ?> 
-					 </a>
-				</li>
-			</ul>
-			 <div class="horbar-clear-fix"></div>  
+		<a href = "<?php echo home_url( '/'); ?>"><button  id = "home-button"><?php _e( 'HOME' , 'responsive-tabs' ); ?></button></a>
+		<ul id = "site-info-wrapper">
+			<li class = "site-title">
+				 <a href="<?php  echo home_url( '/' ); ?>" title="<?php _e( 'Go to front page', 'responsive-tabs' ); ?>">
+				 	<?php echo esc_html( get_theme_mod( 'site_short_title' ) ); ?> -- <?php _e( 'Full Width View', 'responsive-tabs' ); ?> 
+				 </a>
+			</li>
+		</ul>
+		<div class="horbar-clear-fix"></div>  
 	</div>
 </div><!-- header-bar wrapper-->
