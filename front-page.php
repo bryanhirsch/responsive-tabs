@@ -134,7 +134,7 @@ if ( 'posts' != get_option( 'show_on_front' ) ) { // use page template
 								echo $tab_content_return;
 							} else { 
 					// supported content options exhausted -- show error message
-								_e( 'Check your setting corresponding to this tab under Dashboard>Appearance>Front Page Options>Tabs>Content for tabs', 'responsive-tabs');							
+								echo '<h4>' . __( 'Check your setting corresponding to this tab under Dashboard>Appearance>Front Page Options>Tabs>Content for tabs', 'responsive-tabs') . '</h4>' ;							
 							}
 						}
 					} ?>
