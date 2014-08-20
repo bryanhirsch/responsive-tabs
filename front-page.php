@@ -96,7 +96,7 @@ if ( 'posts' != get_option( 'show_on_front' ) ) { // use page template
 						$tab_title_count = 0;
 						foreach ( $tab_titles_array as $tab_title ) {
 	    					if( $active_tab != $tab_title_count ) {    		
-								echo '<option value="/?frontpagetab=' . $tab_title_count .'"> ' . esc_html( $tab_title ) . '</option>';
+								echo '<option value="/?frontpagetab=' . $tab_title_count . '"> ' . esc_html( $tab_title ) . '</option>';
 							}
 							$tab_title_count = $tab_title_count + 1;    			
 						}?> 
