@@ -698,11 +698,6 @@ display: none;}
 	margin-top: 0px;
 	padding-right: 5px;
 }
-#home_bulk_widgets 
-{
-	float: left;
-	background: #fff;
-}
 
 div.home_bulk_widget_wrapper:nth-of-type(5n+1)
 {
@@ -739,7 +734,7 @@ div.home_bulk_widget_wrapper:nth-of-type(5n+4)
 	  float: left;
 	 }
 
-#home_bulk_widgets .home_bulk_widget_wrapper h2.widgettitle
+.home_bulk_widget_wrapper h2.widgettitle
 {
 	color: #555;
 	margin: 0 0 5px 0; 
