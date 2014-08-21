@@ -44,7 +44,7 @@ GNU General Public License for more details.
 	side menu
 	view frame and miscellaneous special page wrappers
 	widgets generally
-	widget -- rcw
+	widget -- rtfpcl
 * -- required Wordpress core styles 
 * -- media queries
 *
@@ -927,12 +927,14 @@ ul.post-list
 	padding-left: 0px;
 }
 
+/* note: these styles also control background colors in widget and comment lists */
+.pl-odd {
+	background: #f0f0f0;
+}
 
-ul.post-list li.pl-odd
-{background: #f0f0f0;}
-
-ul.post-list li.pl-even
-{background: #fafafa;}
+.pl-even {
+	background: #fafafa;
+}
 
 ul.post-list li.sticky
 {
@@ -1192,68 +1194,61 @@ div#front-page-post-entry
 /* rich category widget styles */
 
 
-ul.rcw-category-list,
-ul.cwe-list
+ul.responsive-tabs-front-page-category-list,
+ul.responsive-tabs-front-page-comment-list
 {
 	list-style: none;
 	margin: 0;
 	padding-left: 0px;
 }
 
-ul.cwe-list li.cwe-odd,
-ul.rcw-category-list li.rcw-odd
-{background: #f0f0f0;}
 
-ul.cwe-list li.cwe-even,
-ul.rcw-category-list li.rcw-even
-{background: #fafafa;}
-
-ul.cwe-list-headers,
-ul.rcw-category-headers{
+ul.responsive-tabs-front-page-comment-list-headers,
+ul.rtfpcl-category-headers{
 	font-size: 14px;
 	font-weight: 700;
 	list-style: none;
 	padding: 8px 8px;
 	}
 
-ul.cwe-list-item,
-ul.rcw-category-list-item 
+ul.responsive-tabs-front-page-comment-list-item,
+ul.responsive-tabs-front-page-category-list-item 
 {
 	list-style: none;	
 	padding: 8px 8px;
 }
 
-li.rcw-category-name
+li.rtfpcl-category-name
 {
 	display: inline-block;
 	width: 30%; 	
 	}
 
-li.rcw-subcategory-list
+li.rtfpcl-subcategory-list
 {
 	display: inline-block;
 	width: 70%; 	
 }
 
-li.cwe-author
+li.responsive-tabs-front-page-comment-author
 {
 	display: inline-block;
 	width: 20%; 	
 	}
 
-li.cwe-post
+li.responsive-tabs-front-page-comment-post
 {
 	display: inline-block;
 	width: 60%; 	
 }
 
-li.cwe-date-time
+li.responsive-tabs-front-page-comment-date-time
 {
 	display: inline-block;
 	width: 20%; 	
 }
 
-div.cwe-excerpt
+div.responsive-tabs-front-page-comment-excerpt
 {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box; 
@@ -1656,23 +1651,23 @@ display: none;
 		display: none;
 	}
 
-	li.rcw-category-name
+	li.rtfpcl-category-name
 	{
 		display: block;
 		width: 100%; 	
 	}
-	li.rcw-subcategory-list
+	li.rtfpcl-subcategory-list
 	{
 		display: none;
 	}
 	
-	li.cwe-author
+	li.responsive-tabs-front-page-comment-author
 	{
 		display: block;
 		width: 100%; 	
 	}
-	li.cwe-post,
-	li.cwe-date-time
+	li.responsive-tabs-front-page-comment-post,
+	li.responsive-tabs-front-page-comment-date-time
 	{
 		display: none;
 	}

@@ -32,7 +32,7 @@ get_header();
 			$sc_count = 0;		 
 			foreach( $subcategories as $subcategory ) {
 			 	  if ( $sc_count > 0 ) {
-			 	  		echo ', ' . '&nbsp;';
+			 	  		echo ', ';
 			 	  } 
 		        echo '<a href="' . get_category_link( $subcategory->term_id ) . '" 
 		        title="' . sprintf( esc_attr__( "View all posts in %s", 'responsive-tabs' ), $subcategory->name ) . '" ' . '>' . esc_html( strtolower( $subcategory->name ) ).'</a>';

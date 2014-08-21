@@ -9,6 +9,7 @@
 * -- registers sidebars
 * -- adds theme support for header, background, thumbnails, html5
 * -- adds metabox to allow control of layout of posts (normal, wide, extra-wide)
+* -- adds functions to create archive drop downs by authors and category
 *
 * @package responsive-tabs
 *
@@ -322,3 +323,74 @@ function responsive_tabs_save_meta_box( $post_id, $post ) {
    
 }
 add_action( 'save_post', 'responsive_tabs_save_meta_box', 10, 2 );
+
+/*
+*
+* functions to create archive drop downs
+*
+*/
+
+/* 
+* author drop down derived from:
+*	https://core.trac.wordpress.org/browser/tags/3.9.1/src/wp-includes/author-template.php#L0
+*	http://codex.wordpress.org/Template_Tags/wp_list_authors
+*/
+
+function responsive_tabs_author_dropdown($args = '') {
+
+	global $wpdb;
+	
+	$query_args = array(
+		'orderby' => 'name', 
+		'order' => 'ASC', 
+		'number' => '',
+		'fields' => 'ids', 
+	);
+
+	$authors = get_users( $query_args );
+
+	$author_count = array();
+	foreach ( (array) $wpdb->get_results("SELECT DISTINCT post_author, COUNT(ID) AS count FROM $wpdb->posts WHERE post_type = 'post' and post_status = 'publish' GROUP BY post_author") as $row ) {{}
+	   $author_count[$row->post_author] = $row->count;
+	}
+
+   $return = 
+   '<select id="author-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">' .
+  		'<option value="">' . __( 'Select Author', 'responsive-tabs' ) . '</option>';
+
+		foreach ( $authors as $author_id ) {
+			$author = get_userdata( $author_id );
+			$posts = isset( $author_count[$author->ID] ) ? $author_count[$author->ID] : 0;
+			if ( !$posts ) {
+				continue;
+			}
+			$link 	= '';
+			$name 	= $author->display_name;
+			$return 	.= '<option value = "';
+			$link 	= get_author_posts_url( $author->ID, $author->user_nicename ) . '"> ' . $name . ' ('. $posts . ')';
+			$return 	.= $link;
+		  	$return 	.= '</option>';
+		}
+	$return .= '</select>';
+
+	echo  $return;
+
+}
+	
+/* function not actually used in release version of theme */
+function responsive_tabs_category_dropdown(){
+
+	echo strtolower(wp_dropdown_categories('echo=0&orderby=NAME&hierarchical=1&hide_if_empty=1&show_count=1&show_option_none=Select category')); 
+	?>	
+	<script type="text/javascript"><!--
+	    var dropdown = document.getElementById("cat");
+	    function onCatChange() {
+			if ( dropdown.options[dropdown.selectedIndex].value > 0 ) {
+				location.href = "<?php echo get_option('home');
+				?>/?cat="+dropdown.options[dropdown.selectedIndex].value;
+			}
+	    }
+	    dropdown.onchange = onCatChange;
+	--></script>
+	<?php
+} 

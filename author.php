@@ -25,10 +25,7 @@ $curauth = ( get_query_var( 'author_name' ) ) ? get_user_by( 'slug', get_query_v
 	 
  	<h1><?php echo $curauth->display_name; ?> </h1>
 
-	<select id="author-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
-  		<option value=""><?php _e( 'Select Author', 'responsive-tabs' ); ?></option> 
-		<?php twcc_list_author_dropdown ($args); ?>
-	</select>
+	<?php responsive_tabs_author_dropdown (); ?>
 	
 </div>
 
