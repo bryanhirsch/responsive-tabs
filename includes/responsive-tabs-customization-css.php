@@ -27,7 +27,7 @@ function responsive_tabs_customize_css()
 	.site-title a,
 	.site-description,
 	#main-tabs .main-tabs-headers li a,
-        #home_bulk_widgets .home_bulk_widget_wrapper h2.widgettitle 
+        #home_bulk_widgets .home-bulk-widget-wrapper h2.widgettitle 
              			{color: <?php echo get_theme_mod('home_widgets_title_color'); ?>;}
 
         #front-page-mobile-color-splash,     			
