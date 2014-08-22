@@ -127,7 +127,7 @@ class Front_Page_Comment_List extends WP_Widget {
 		global $comments, $comment;
 
  		extract( $args, EXTR_SKIP );
- 		$output = '';
+ 		$output = '<!-- responsive-tabs Front_Page_Comment_List Widget, includes/responsive-tabs-widgets.php -->';
 
 		$number = ( ! empty( $instance['number'] ) ) ? absint( $instance['number'] ) : 50;
 		if ( ! $number ) {
@@ -269,7 +269,7 @@ class Front_Page_Post_Summary extends WP_Widget {
 		
  		extract( $args, EXTR_SKIP );
  		
- 		$output = '';
+ 		$output = '<!-- responsive-tabs Front_Page_Post_Summary widget, includes/responsive-tabs-widgets.php -->';
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
 		$output .=  $before_widget;
 		if ( $title ) {

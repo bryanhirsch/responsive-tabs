@@ -104,9 +104,9 @@ function responsive_tabs_widgets_init() {
 	) );
 
 	register_sidebar( array(
-		'name' 				=> __( 'Home Widget Bulk', 'responsive-tabs' ),
+		'name' 				=> __( 'Home Widget 1 (Bulk Area)', 'responsive-tabs' ),
 		'description' 		=> __( 'Large widget area to compose front page from multiple small widgets ', 'responsive-tabs' ),
-		'id' 					=> 'home_bulk_widget',
+		'id' 					=> 'home_widget_1',
 		'class' 				=> '',
 		'before_widget' 	=> '<div class = "home-bulk-widget-wrapper"> ',
 		'after_widget' 	=> '</div>',
@@ -115,7 +115,7 @@ function responsive_tabs_widgets_init() {
 	) );
 	
 	register_sidebar( array(
-		'name' 				=> __( 'Home Widget Two', 'responsive-tabs' ),
+		'name' 				=> __( 'Home Widget 2', 'responsive-tabs' ),
 		'description' 		=> __( 'Second Widget Option for Front Page Tabs', 'responsive-tabs' ),
 		'id' 					=> 'home_widget_2',
 		'class' 				=> '',
@@ -126,7 +126,7 @@ function responsive_tabs_widgets_init() {
 	) );
 	
 	register_sidebar( array(
-		'name' 				=> __( 'Home Widget Three', 'responsive-tabs' ),
+		'name' 				=> __( 'Home Widget 3', 'responsive-tabs' ),
 		'description' 		=> __( 'Third Widget Option for Front Page Tabs', 'responsive-tabs' ),
 		'id' 					=> 'home_widget_3',
 		'class' 				=> '',
@@ -137,7 +137,7 @@ function responsive_tabs_widgets_init() {
 	) );
 
 	register_sidebar( array(
-		'name' 				=> __( 'Home Widget Four', 'responsive-tabs' ),
+		'name' 				=> __( 'Home Widget 4', 'responsive-tabs' ),
 		'description' 		=> __( 'Fourth Widget Option for Front Page Tabs', 'responsive-tabs' ),
 		'id' 					=> 'home_widget_4',
 		'class' 				=> '',
@@ -148,7 +148,7 @@ function responsive_tabs_widgets_init() {
 	) );
 
 	register_sidebar( array(
-		'name' 				=> __( 'Home Widget Five', 'responsive-tabs' ),
+		'name' 				=> __( 'Home Widget 5', 'responsive-tabs' ),
 		'description' 		=> __( 'Fifth Widget Option for Front Page Tabs', 'responsive-tabs' ),
 		'id' 					=> 'home_widget_5',
 		'class' 				=> '',
@@ -159,7 +159,7 @@ function responsive_tabs_widgets_init() {
 	) );
 
 		register_sidebar( array(
-		'name' 				=> __( 'Home Widget Six', 'responsive-tabs' ),
+		'name' 				=> __( 'Home Widget 6', 'responsive-tabs' ),
 		'description' 		=> __( 'Sixth Widget Option for Front Page Tabs', 'responsive-tabs' ),
 		'id' 					=> 'home_widget_6',
 		'class' 				=> '',
@@ -170,7 +170,7 @@ function responsive_tabs_widgets_init() {
 	) );
 	
 	register_sidebar( array(
-		'name' 				=> __( 'Home Widget Seven', 'responsive-tabs' ),
+		'name' 				=> __( 'Home Widget 7', 'responsive-tabs' ),
 		'description' 		=> __( 'Seventh Widget Option for Front Page Tabs', 'responsive-tabs' ),
 		'id' 					=> 'home_widget_7',
 		'class' 				=> '',
