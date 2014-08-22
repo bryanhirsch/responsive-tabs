@@ -17,20 +17,35 @@ echo '<!-- responsive-tabs footer.php -->';
 * accordion footer 
 *
 */
-if ( is_front_page() && $responsive_tabs_theme_options_array['accordion_posts'] > '') {
+
+if ( is_front_page() ) {
+	$accordion_posts_list = $responsive_tabs_theme_options_array['front_page_accordion_posts'];
+} elseif ( is_page() ) {
+	$accordion_posts_list = $responsive_tabs_theme_options_array['page_accordion_posts'];
+} elseif ( is_single() ) {
+	$accordion_posts_list = $responsive_tabs_theme_options_array['post_accordion_posts'];
+} elseif ( is_archive() ) {
+	$accordion_posts_list = $responsive_tabs_theme_options_array['archive_accordion_posts'];
+} else {
+	$accordion_posts_list = '';
+}
+
+if (  $accordion_posts_list > '') {
  	
-	$accordion_posts_array = explode(',',$responsive_tabs_theme_options_array['accordion_posts']); 
+	$accordion_posts_array = explode( ',', $accordion_posts_list ); 
  	
 	echo ' <div id = "accordion-wrapper">';
 	
 		foreach ( $accordion_posts_array as $fold_content ) {
-			$post_f = get_post($fold_content);
-			$post_content = apply_filters( 'the_content', $post_f->post_content );
-			$post_title = apply_filters( 'the_title', $post_f->post_title );			
-			echo '<div class="accordionItem">' .
-		 		'<h2 class=accordion-header>' . $post_title . '</h2>' . 
-				'<div class="accordion-content">' . $post_content . '</div>' .
-			'</div>';
+			$post_f = get_post( $fold_content );
+			if ($post_f) {
+				$post_content = apply_filters( 'the_content', $post_f->post_content );
+				$post_title = apply_filters( 'the_title', $post_f->post_title );			
+				echo '<div class="accordionItem">' .
+			 		'<h2 class=accordion-header>' . $post_title . '</h2>' . 
+					'<div class="accordion-content">' . $post_content . '</div>' .
+				'</div>';
+			}
 		};
 
 	echo '</div>';

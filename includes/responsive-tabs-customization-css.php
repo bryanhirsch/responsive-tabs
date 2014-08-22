@@ -77,9 +77,12 @@ add_action( 'wp_head', 'responsive_tabs_output_header_scripts',999999);
 
 
 function responsive_tabs_output_footer_scripts()
-{       
+{  
+	if (!is_user_logged_in()) 
+	{     
 	$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' );
 	echo $responsive_tabs_theme_options_array['scripts_footer'];
+}
 }
 
 add_action( 'wp_footer', 'responsive_tabs_output_footer_scripts');

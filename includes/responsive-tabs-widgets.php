@@ -319,19 +319,8 @@ class Front_Page_Post_Summary extends WP_Widget {
 		$instance = $old_instance;
 		
 		$instance['title'] = strip_tags( $new_instance['title'] ); // no tags in title
-      
-      $post_list_raw = $new_instance['post_list'];					  // post list must be comma separated numbers
-      $post_list_array = explode( ',', $post_list_raw );
-		$post_list_clean = '';      
-      foreach( $post_list_array as $post_list_entry ) {
-	      $post_list_addition = is_numeric( trim( $post_list_entry ) ) ? trim( $post_list_entry ) . ',' : '';
-   	   $post_list_clean .= $post_list_addition;
-      }		
-		if( $post_list_clean > '' ) { // no trailing commas
-			$post_list_clean = rtrim( $post_list_clean, ',' );
-		}
-	
-		$instance['post_list'] =  $post_list_clean;
+
+		$instance['post_list'] =  responsive_tabs_clean_post_list($new_instance['post_list']);
 		
 		$instance['single_display_mode'] = strip_tags($new_instance['single_display_mode']);
 

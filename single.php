@@ -60,7 +60,7 @@ while ( have_posts() ) : the_post();
 		if ( ! $bbpress_switch ) { ?>
 			<div id = "wp-single-content">   
 				<div class = "post-info"> <?php 
-					_e( 'By', 'reponsive-tabs' ) ?> 
+					_e( 'By', 'responsive-tabs' ) ?> 
 						<span class="post-author">
 							<?php $guest_author = get_post_meta( get_the_ID(), 'twcc_post_guest_author', true );
 								if ( $guest_author === '' ){ // supports twcc frontend-post-no-spam plugin

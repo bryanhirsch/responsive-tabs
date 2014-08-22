@@ -10,6 +10,7 @@
 * -- adds theme support for header, background, thumbnails, html5
 * -- adds metabox to allow control of layout of posts (normal, wide, extra-wide)
 * -- adds functions to create archive drop downs by authors and category
+* -- adds function to sanitize a list of post id's
 *
 * @package responsive-tabs
 *
@@ -66,8 +67,11 @@ add_action('wp_enqueue_scripts', 'responsive_tabs_theme_setup');
 /*
 *  suppress bbpress bread crumbs on bbp template forms -- since may be loading broader breadcrumb plugins or offering own
 */
-add_filter( 'bbp_no_breadcrumb', '__return_true' );
-
+$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' );
+ 
+if ( $responsive_tabs_theme_options_array['suppress_bbpress_breadcrumbs'] == true ) {
+	add_filter( 'bbp_no_breadcrumb', '__return_true' );
+}
 /*
 * set up menu
 */
@@ -394,3 +398,21 @@ function responsive_tabs_category_dropdown(){
 	--></script>
 	<?php
 } 
+/*
+* function to sanitize a list of post id's to a comma separated string of numerics
+*
+*/
+function responsive_tabs_clean_post_list($post_list)  { 
+   	
+   $post_list_array = explode( ',', $post_list);
+	$post_list_clean = '';      
+   foreach( $post_list_array as $post_list_entry ) {
+      $post_list_addition = is_numeric( trim( $post_list_entry ) ) ? trim( $post_list_entry ) . ',' : '';
+	   $post_list_clean .= $post_list_addition;
+   }		
+	if( $post_list_clean > '' ) { // no trailing commas
+		$post_list_clean = rtrim( $post_list_clean, ',' );
+	}
+
+	return $post_list_clean;
+}

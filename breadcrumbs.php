@@ -10,20 +10,23 @@
 /* assure that will die if accessed directly */ 
 defined( 'ABSPATH' ) or die( "No script kiddies please!" );
 
-echo '<div id="breadcrumbs">';
-	
-	/* test for installed breadcrumb plugins and display them -- credit for these lines to Cyberchimps Responsive */
-	if ( function_exists( 'bcn_display' ) ) {  
+$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' );
+ 
+/* test for installed breadcrumb plugins and display them -- credit for these lines to Cyberchimps Responsive */
+if ( function_exists( 'bcn_display' ) ) {  
+	echo '<div id="breadcrumbs">';		
 		bcn_display();
-	} elseif ( function_exists( 'breadcrumb_trail' ) ) {
+	echo 'div';
+} elseif ( function_exists( 'breadcrumb_trail' ) ) {
+	echo '<div id="breadcrumbs">';		
 		breadcrumb_trail();
-	} elseif ( function_exists( 'yoast_breadcrumb' ) ) {
+	echo 'div';
+} elseif ( function_exists( 'yoast_breadcrumb' ) ) {
+	echo '<div id="breadcrumbs">';		
 		yoast_breadcrumb( '<p id="breadcrumbs">', '</p>' );
-	}
-	
-	else {
-	   /* set up variables for theme controlled breadcrumbs */
-	  	$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' );		
+	echo 'div';
+} elseif ( $responsive_tabs_theme_options_array['show_breadcrumbs'] == true ) {
+   echo '<div id="breadcrumbs">';		  			
 		global $wp_locale; 
 		$taxonomy = get_query_var('taxonomy');
 		/* construct breadcrumbs for templates */	
@@ -78,5 +81,5 @@ echo '<div id="breadcrumbs">';
 			$home_link =  '<a href="/?frontpagetab=' . $responsive_tabs_theme_options_array['publications_home'] .'">' . __( 'home', 'responsive-tabs' ) . '</a> &raquo; ';
 			echo $home_link . __( 'search by publication &raquo;', 'responsive_tabs' ); 	
 		}
-	} /* close else for theme controlled breadcrumbs */
-echo '</div> <!-- close breadcrumbs -->';
+	echo '</div>';
+} /* close else for theme controlled breadcrumbs */
