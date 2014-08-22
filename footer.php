@@ -10,7 +10,7 @@
 /* assure that will die if accessed directly */ 
 defined( 'ABSPATH' ) or die( "No script kiddies please!" );
 
-$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' ); 
+global $responsive_tabs_theme_options_array; 
 
 echo '<!-- responsive-tabs footer.php -->';
 /*

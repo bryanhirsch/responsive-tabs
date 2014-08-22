@@ -54,7 +54,7 @@ if ( 'posts' != get_option( 'show_on_front' ) ) { // use page template
 	* tabs area
 	*
 	*/
-	$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' ); 
+	global $responsive_tabs_theme_options_array;
 	if ( $responsive_tabs_theme_options_array['tab_titles'] > ' ' && $responsive_tabs_theme_options_array['tab_content'] > '  '  )
 	{
 	
