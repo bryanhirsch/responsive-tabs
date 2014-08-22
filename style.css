@@ -336,7 +336,7 @@ img {
 }
 
 /* bottom widget */
-#bottom_widget_area {
+#bottom-widget-area {
 	background: #fff;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box; 
@@ -346,7 +346,7 @@ img {
 	padding: 0px 8px; 
 }
 
-#bottom_widget_area h3 {
+#bottom-widget-area h3 {
 	margin-top: 0px; 
 }
 
@@ -526,7 +526,7 @@ ul.children {
 
 
 /* highlight area */
-#highlight_text_area {
+#highlight-text-area {
 	background: #D10A0A;
 	color: white; 
 	font-family: Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
@@ -535,7 +535,7 @@ ul.children {
 }
 
 /* use line height to determine spacing between paragraphs and fill in padding for the area */
-#highlight_headline {
+#highlight-headline {
 	font-size: 52px;
 	font-weight: 400; 
 	letter-spacing: 1px;
@@ -544,7 +544,7 @@ ul.children {
 	text-align: left;
 }
 
-#highlight_subhead {
+#highlight-subhead {
 	font-size: 24px;
 	font-weight: 400; 
 	letter-spacing: 1px;
@@ -553,7 +553,7 @@ ul.children {
 	text-align: left;
 }
 
-#highlight_headline_small_screen {
+#highlight-headline-small-screen {
 	display: none;
 	font-size: 24px;
 	font-weight: 400; 
@@ -563,9 +563,9 @@ ul.children {
 	text-align: left;
 }
 
-#highlight_headline_small_screen p,
-#highlight_headline p,
-#highlight_subhead p {
+#highlight-headline-small-screen p,
+#highlight-headline p,
+#highlight-subhead p {
 	margin: 0;
 }
 
@@ -815,12 +815,6 @@ ul.pl-post-item {
 #post-list-wrapper h1 {
 	padding: 8px; 
 	margin: 8px; 
-}
-
-p.post_excerpt {
-	background: #fff;
-	margin-bottom: 20px;
-	padding: 20px; 
 }
 
 #post-list-wrapper h2 {
@@ -1135,7 +1129,7 @@ a img.aligncenter {
 		width: 100%;
 	}
 	
-	#highlight_text_area	{
+	#highlight-text-area	{
 		min-height: 0;
 	}
 }
@@ -1194,15 +1188,15 @@ a img.aligncenter {
 	}	
 
 	/* downsize headline */
-	#highlight_headline,
-	#highlight_subhead,
-	#highlight_headline_small_screen {
+	#highlight-headline,
+	#highlight-subhead,
+	#highlight-headline-small-screen {
 			font-size: 24px;
 			line-height: 1.3;
 			padding: 20px 0 20px 20px;
 		}
 	/* better yet, hide headline */
-	#highlight_text_area {
+	#highlight-text-area {
 	display: none;
 	}	
 	
@@ -1258,12 +1252,12 @@ a img.aligncenter {
 		overflow-x: scroll;
 	}
 
-	#highlight_headline,
-	#highlight_subhead {
+	#highlight-headline,
+	#highlight-subhead {
 		display: none;
 	}
 	
-	#highlight_headline_small_screen	{
+	#highlight-headline-small-screen	{
 		display: block;
 	}
 

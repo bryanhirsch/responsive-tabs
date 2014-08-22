@@ -57,7 +57,7 @@ if (  $accordion_posts_list > '') {
 
 
 <?php if( is_active_sidebar( 'bottom_sidebar' ) ) { ?>
-	<div id = "bottom_widget_area">
+	<div id = "bottom-widget-area">
 		<?php dynamic_sidebar( 'bottom_sidebar' )  ?>
 	</div>
 <?php } ?>

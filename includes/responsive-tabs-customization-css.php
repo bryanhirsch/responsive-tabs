@@ -49,18 +49,18 @@ function responsive_tabs_customize_css() { ?>
 	 	}
 	
 		#front-page-mobile-color-splash,     			
-		#highlight_text_area,
+		#highlight-text-area,
 		#color-splash { 
 			background: <?php echo get_theme_mod( 'highlight_color' ); ?>; 
 		}
 	  			
-		#highlight_headline,
-		#highlight_subhead	{
+		#highlight-headline,
+		#highlight-subhead	{
 			color: <?php echo get_theme_mod( 'highlight_headline_color' ); ?>;
 			font-family: <?php echo get_theme_mod( 'highlight_headline_font_family' ); ?>;
 		}
 	
-		#highlight_headline	{
+		#highlight-headline	{
 			font-size: <?php echo get_theme_mod( 'highlight_headline_font_size' ); ?>;
 		}
 	
@@ -75,7 +75,7 @@ function responsive_tabs_customize_css() { ?>
 		}
 	
 		@media only screen and (max-width: 840px) {
-			#highlight_headline	{
+			#highlight-headline	{
 				font-size: <?php echo get_theme_mod( 'highlight_headline_font_size_small_screen' ); ?>;
 			}
 		}
