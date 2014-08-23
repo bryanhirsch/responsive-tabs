@@ -405,6 +405,11 @@ ol.commentlist li.even {
  	content: " said on ";  
 }
 
+.says
+{
+	display: none;
+}
+
 .comment-body {
 	padding: 20px;  
 }
