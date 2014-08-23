@@ -18,13 +18,13 @@ echo '<!-- responsive-tabs footer.php -->';
 *
 */
 
-if ( is_front_page() ) {
+if ( is_front_page() and isset( $responsive_tabs_theme_options_array['front_page_accordion_posts'] ) ) {
 	$accordion_posts_list = $responsive_tabs_theme_options_array['front_page_accordion_posts'];
-} elseif ( is_page() ) {
+} elseif ( is_page() and isset( $responsive_tabs_theme_options_array['page_accordion_posts'] ) ) {
 	$accordion_posts_list = $responsive_tabs_theme_options_array['page_accordion_posts'];
-} elseif ( is_single() ) {
+} elseif ( is_single() and isset( $responsive_tabs_theme_options_array['post_accordion_posts'] ) ) {
 	$accordion_posts_list = $responsive_tabs_theme_options_array['post_accordion_posts'];
-} elseif ( is_archive() ) {
+} elseif ( is_archive() and isset( $responsive_tabs_theme_options_array['archive_accordion_posts'] ) ) {
 	$accordion_posts_list = $responsive_tabs_theme_options_array['archive_accordion_posts'];
 } else {
 	$accordion_posts_list = '';

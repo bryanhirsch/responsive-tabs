@@ -80,10 +80,12 @@ function responsive_tabs_customize_css() { ?>
 			}
 		}
 	
-		<?php global $responsive_tabs_theme_options_array; 	
-		echo '<!-- responsive-tab css directly input in admin>appearance>front page options (echoed in responsive-tabs-customization-css.php)-->
-		' . esc_html( $responsive_tabs_theme_options_array['css_header']) ; ?>
-	  
+		<?php global $responsive_tabs_theme_options_array; 
+		
+		if( isset( $responsive_tabs_theme_options_array['css_header'] )  ) {	
+			echo '<!-- responsive-tab css directly input in admin>appearance>front page options (echoed in responsive-tabs-customization-css.php)-->
+			' . esc_html( $responsive_tabs_theme_options_array['css_header']) ;
+	   } ?>
 	</style>
  <?php
 }
@@ -91,11 +93,10 @@ add_action( 'wp_head', 'responsive_tabs_customize_css' );
 
 function responsive_tabs_output_header_scripts()
 {
-	if (!is_user_logged_in()) 
-	{
-		global $responsive_tabs_theme_options_array;
+	global $responsive_tabs_theme_options_array;
+	if ( ! is_user_logged_in() && isset( $responsive_tabs_theme_options_array['scripts_header'] ) ) {
 		echo  '<!-- responsive-tab script directly input in admin>appearance>front page options (echoed in responsive-tabs-customization-css.php)-->
-		' .  $responsive_tabs_theme_options_array['scripts_header'] ;
+		' .  $responsive_tabs_theme_options_array['scripts_header'];
 	}
 }
 add_action( 'wp_head', 'responsive_tabs_output_header_scripts', 999 );
@@ -103,9 +104,8 @@ add_action( 'wp_head', 'responsive_tabs_output_header_scripts', 999 );
 
 function responsive_tabs_output_footer_scripts()
 {  
-	if (!is_user_logged_in()) 
-	{     
-		global $responsive_tabs_theme_options_array;
+	global $responsive_tabs_theme_options_array;	
+	if ( ! is_user_logged_in() && isset( $responsive_tabs_theme_options_array['scripts_footer'] ) ) {     
 		echo '<!-- responsive-tab script directly input in admin>appearance>front page options (echoed in responsive-tabs-customization-css.php)-->
 		' . $responsive_tabs_theme_options_array['scripts_footer'];
 	}

@@ -141,15 +141,15 @@ class Responsive_Tabs_Breadcrumbs_Tab {
 	* individual field callbacks
 	*
 	*/
-	public function show_breadcrumbs_callback() {  
+	public function show_breadcrumbs_callback() { 
 		printf('<input type="checkbox" id="show_breadcrumbs" name="responsive_tabs_theme_options_array[show_breadcrumbs]" value="%s" %s />',
-			1, checked( '1',  $this->options['show_breadcrumbs'], false )
+			1, checked( '1',  ( isset( $this->options['show_breadcrumbs'] ) ) ? $this->options['show_breadcrumbs'] : 0 , false )
   		);
 	}
 
 	public function suppress_bbpress_breadcrumbs_callback() {  
 		printf('<input type="checkbox" id="suppress_bbpress_breadcrumbs" name="responsive_tabs_theme_options_array[suppress_bbpress_breadcrumbs]" value="%s" %s />',
-			1, checked( '1',  $this->options['suppress_bbpress_breadcrumbs'], false )
+			1, checked( '1',  ( isset ( $this->options['suppress_bbpress_breadcrumbs'] ) ) ? $this->options['suppress_bbpress_breadcrumbs'] : 0 , false )
   		);
 	}
 

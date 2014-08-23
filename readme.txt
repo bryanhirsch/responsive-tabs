@@ -31,10 +31,10 @@ Major Design Features
 1.  Standard theme install -- install the theme files in a subdirectory called responsive-tabs in the wp-content/themes subdirectory.
 2.  From the Wordpress administrative dashboard go to Appearance>Themes to activate Responsive Tabs.
 3.  After activation, go to the administrative dashboard and select Appearance>Front Page Options>Tabs to configure front page tabs. Follow instructions there to set up your front page.  Note that you will choose which, if any, major widget areas you wish to display.
-4.  Go to Appearance>Widgets to put content into the widget areas that you have chosen to display in tabs in step 3.
-5.  Go to Appearance>Menu to select a menu to put in the Main Menu location that will appear in the left sidebar (in widescreen view) or under the drop down (in screens less than 1580 pixels wide).
+4.  Go to Appearance>Widgets to put content into the widget areas that you have chosen to display in tabs in step 3.  You can also do this under Appearance>Customize>Widgets:[named widget area], but the tabbed widgets will not all show at once.  You have to move from tab to tab.
+5.  Go to Appearance>Customize>Menu to select a menu to put in the Main Menu location that will appear in the left sidebar (in widescreen view) or under the drop down (in screens less than 1580 pixels wide).  Or go to Appearance>Menus to create a menu if you are starting from scratch.
 6.  Go to Appearance>Customize>Login Links in side menu to optionally append profile, dashboard and login/out links to the main menu.
-7.  Check Settings>Reading>Front page displays -- make sure that it is set to Your Latest Posts. That setting will invoke the Responsive Tabs tabbed front page.  However, you can also choose A Static Page and that will bypass the Responsive Tabs front page.
+7.  Check Settings>Reading>Front page displays (also accessible through Appearance>Customize>Front Page Displays) -- make sure that it is set to Your Latest Posts. That setting will invoke the Responsive Tabs tabbed front page.  However, you can also choose A Static Page and that will bypass the Responsive Tabs front page.
 8.  Check your site front page.  If you are happy with your front page tabs, return to Appearance>Front Page Options to configure the other options available there -- Accordions and Breadcrumbs.  If you are an experienced user, you can add custom CSS and scripts.
 9.  Go to Appearance>Customize to choose, colors, fonts, etc.  
 10. Let us know if you have questions or concerns -- will@twoconstituentcommunication.com

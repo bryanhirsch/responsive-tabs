@@ -74,8 +74,10 @@ $responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_option
 /*
 *  suppress bbpress bread crumbs on bbp template forms -- since may be loading broader breadcrumb plugins or offering own
 */ 
-if ( $responsive_tabs_theme_options_array['suppress_bbpress_breadcrumbs'] == true ) {
-	add_filter( 'bbp_no_breadcrumb', '__return_true' );
+if ( isset ( $responsive_tabs_theme_options_array['suppress_bbpress_breadcrumbs'] ) ) {
+	if ( $responsive_tabs_theme_options_array['suppress_bbpress_breadcrumbs'] == true ) {
+		add_filter( 'bbp_no_breadcrumb', '__return_true' );
+	}
 }
 /*
 * set up menu
