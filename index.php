@@ -9,7 +9,7 @@
  */
 
 /* assure that will die if accessed directly */ 
-defined( 'ABSPATH' ) or die( "No script kiddies please!" );
+defined( 'ABSPATH' ) or die( "Unauthorized direct script access." );
 
 get_header();
 

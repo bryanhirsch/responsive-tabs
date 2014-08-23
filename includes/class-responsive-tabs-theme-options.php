@@ -11,7 +11,7 @@
 * @package responsive-tabs
 */
 /* assure that will die if accessed directly */ 
-defined( 'ABSPATH' ) or die( "No script kiddies please!" );
+defined( 'ABSPATH' ) or die( "Unauthorized direct script access." );
 
 class Responsive_Tabs_Theme_Options {
    	    
