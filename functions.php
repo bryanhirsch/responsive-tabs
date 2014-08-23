@@ -56,10 +56,10 @@ if ( is_admin() ) {
 function responsive_tabs_theme_setup() {
 	if ( !is_admin() ) {
 		wp_register_script(
-		  'resize',
-		 	get_template_directory_uri() . '/js/resize.js'
+		  'responsive-tabs-utilities',
+		 	get_template_directory_uri() . '/js/responsive-tabs-utilities.js'
 		);
-		wp_enqueue_script('resize');
+		wp_enqueue_script('responsive-tabs-utilities');
 	} 		
 }
 add_action('wp_enqueue_scripts', 'responsive_tabs_theme_setup');

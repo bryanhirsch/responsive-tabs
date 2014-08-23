@@ -41,30 +41,40 @@ if ( comments_open() ) { ?>
 			<small><?php cancel_comment_reply_link() ?></small>
 		</div>
 	
-		<?php if ( get_option('comment_registration') && !is_user_logged_in() ) { ?>
+		<?php if ( get_option( 'comment_registration' ) && ! is_user_logged_in() ) { ?>
 			<p><?php printf(__('You must be <a href="%s">logged in</a> to comment.', 'responsive-tabs' ), wp_login_url( get_permalink() )); ?></p>
-		<?php } else { ?>
+		<?php } else {	?>
+
+				<?php $email_author_reminder = ''; // filled in below subject to conditions ?>	
 		
-			<form action="<?php echo site_url(); ?>/wp-comments-post.php" method="post" id="commentform">
+				<form action="<?php echo site_url(); ?>/wp-comments-post.php" method="post" id="commentform" name="commentform">
 				
 				<?php if ( is_user_logged_in() ) { ?>
 				
 					<p><?php printf( __('Logged in as <a href="%1$s">%2$s</a>.', 'responsive-tabs' ), get_edit_user_link(), $user_identity); ?> <a href="<?php echo wp_logout_url(get_permalink()); ?>" title="<?php esc_attr_e( 'Log out of this account', 'responsive-tabs' ); ?>"><?php _e( 'Log out &raquo;', 'responsive-tabs' ); ?></a></p>
 				
 				<?php } else { ?>
-					
-					<p><input type="text" name="author" id="author" value="<?php echo esc_attr( $comment_author ); ?>" size="22" tabindex="1" <?php if ($req) echo "aria-required='true'"; ?> />
+				
+					<?php if ( get_option ( 'require_name_email' ) ) {
+						$email_author_reminder = 'onBlur="checkNameEmailOnComments()"';
+					} 				
+					/* The onBlur function for the comment element alerts the user who has entered comment that s/he has not entered name or email -- 
+					*  user can proceed to submit form anyway.  This is a courtesy -- some browsers allow input to be lost if edits failed and must use back button. 
+					*/ 
+					?>
+				
+				<p><input type="text" name="author" id="author" value="<?php echo esc_attr( $comment_author ); ?>" size="22" tabindex="1" <?php if ($req) echo "aria-required='true'"; ?> />
 					<label for="author"><small><?php _e( 'Name', 'responsive-tabs' ); ?> <?php if ($req) _e('(required)', 'responsive-tabs' ); ?></small></label></p>
 					
-					<p><input type="text" name="email" id="email" value="<?php echo esc_attr( $comment_author_email ); ?>" size="22" tabindex="2" <?php if ($req) echo "aria-required='true'"; ?> />
+					<p><input type="text" name="email" id="email" value="<?php echo esc_attr( $comment_author_email ) ?>" size="22" tabindex="2" <?php if ($req) echo "aria-required='true'"; ?> />
 					<label for="email"><small><?php _e( 'Mail (will not be published)', 'responsive-tabs' ); ?> <?php if ($req) _e( 'required', 'responsive-tabs' ); ?></small></label></p>
 					
 					<p><input type="text" name="url" id="url" value="<?php echo  esc_attr( $comment_author_url ); ?>" size="22" tabindex="3" />
 					<label for="url"><small><?php _e( 'Website', 'responsive-tabs' ); ?></small></label></p>
-					
+						
 				<?php } ?>
 										
-				<p><textarea name="comment" id="comment" cols="58" rows="10" tabindex="4"></textarea></p>
+				<p><textarea name="comment" id="comment" cols="58" rows="10" tabindex="4" <?php echo $email_author_reminder; ?>></textarea></p>
 				
 				<p><input name="submit" type="submit" id="submit" tabindex="5" value="<?php esc_attr_e( 'Submit Comment', 'responsive-tabs') ; ?>" />
 				<?php comment_id_fields(); ?>

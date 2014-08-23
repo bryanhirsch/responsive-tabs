@@ -1,8 +1,11 @@
 /*
-* File: resize.js
+* File: responsive-tabs-utilities.js
 * 
-* Description: Implements menu show/hide and front page accordion show/hide
-* 					Manages column widths for older browsers (if don't support css calc)  
+* Description: Minor utility functions for the theme
+*  -- menu show/hide
+*  -- front page accordion show/hide
+* 	-- manages column widths on load for older browsers (if don't support css calc)
+*  -- covers what appears to be wordpress bug
 *
 * @package responsive
 */ 
@@ -46,19 +49,21 @@ function ResetSideMenu() {
 	var sideMenu  = document.getElementById ( "side-menu" ); 
 	var menuButton	= document.getElementById ( "side-menu-button" );
 	var headerBarContentSpacer = document.getElementById ( "header-bar-content-spacer" );
+	var homeButton = document.getElementById ( "home-button");	
 	
-	menuButton.innerHTML = "MENU";
-	
-	if ( innerWindowWidth > 1579 ) {
-		menuButton.style.display = "none";	
-		sideMenu.style.display = "block"; 
-		headerBarContentSpacer.style.display = "block"; 
-		sideMenu.className = "sidebar-menu";
-	} else { 
-		menuButton.style.display = "block";
-		sideMenu.style.display = "none"; 
-		headerBarContentSpacer.style.display = "none"; 
-		sideMenu.className = "dropdown-menu";		
+	if ( undefined == homeButton ) {	// don't invoke this logic for retina-width templates
+		
+		if ( innerWindowWidth > 1579 ) {
+			menuButton.style.display = "none";	
+			sideMenu.style.display = "block"; 
+			headerBarContentSpacer.style.display = "block"; 
+			sideMenu.className = "sidebar-menu";
+		} else { 
+			menuButton.style.display = "block";
+			sideMenu.style.display = "none"; 
+			headerBarContentSpacer.style.display = "none"; 
+			sideMenu.className = "dropdown-menu";		
+		}
 	}
 }
 
@@ -197,3 +202,23 @@ function getFirstChildWithTagName( element, tagName ) {
         if ( element.childNodes[i].nodeName == tagName ) return element.childNodes[i];
       }
 }
+
+/* Notifies user who has entered text to non-entry of name and email -- can proceed to submit comment anyway, but 
+   may lose comment text if name and email are set as required in settings>discussion (browsers do not consistently protect against 
+   loss of entered data on back button use )  */
+    
+function checkNameEmailOnComments() {  
+	
+	author 	= document.commentform.author.value;	
+	email 	= document.commentform.email.value;
+	
+	atpos 	= email.indexOf("@");
+	dotpos 	= email.lastIndexOf(".");
+	
+	if ( author.length < 1) { 
+		alert ( 'Please enter a Name.' );
+	} else if ( atpos< 1 || dotpos<atpos+2 || dotpos+2>= email.length ) {
+		alert ( 'Please enter a valid email address.' );
+	}
+
+}    
