@@ -36,8 +36,8 @@ include get_template_directory() . '/includes/responsive-tabs-widgets.php';
 $theme_options_tabs = array (
    	array ( 'tabs', 'Tabs' ),
    	array ( 'accordion', 'Accordion' ),
+		array ( 'breadcrumbs', 'Breadcrumbs' ),	   	
    	array ( 'scripts', 'CSS/Scripts' ),
-   	array ( 'breadcrumbs', 'Breadcrumbs' ),
 );
 
 if ( is_admin() ) {
@@ -65,10 +65,15 @@ function responsive_tabs_theme_setup() {
 add_action('wp_enqueue_scripts', 'responsive_tabs_theme_setup');
 
 /*
-*  suppress bbpress bread crumbs on bbp template forms -- since may be loading broader breadcrumb plugins or offering own
+*
+* get the theme options from the database into a variable, referenced globally in multiple theme templates
+*
 */
 $responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' );
- 
+
+/*
+*  suppress bbpress bread crumbs on bbp template forms -- since may be loading broader breadcrumb plugins or offering own
+*/ 
 if ( $responsive_tabs_theme_options_array['suppress_bbpress_breadcrumbs'] == true ) {
 	add_filter( 'bbp_no_breadcrumb', '__return_true' );
 }

@@ -110,7 +110,7 @@ function ResizeMajorContentAreas()
 	var vf  = document.getElementById ( "view-frame" ); 
 	var cw  = document.getElementById ( "content-wrapper" ); 
 	var sb = document.getElementById ( "right-sidebar-wrapper" );
-	var smsl= document.getElementById ( "header-bar-widget-wrapper_side_menu_copy");
+	var smsl= document.getElementById ( "header-bar-widget-wrapper-side-menu-copy");
 	var hbsl = document.getElementById ( "header-bar-widget-wrapper");
 
 	if ( ww > 1579 )
