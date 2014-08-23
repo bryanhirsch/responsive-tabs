@@ -9,23 +9,15 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Description: Responsive Tabs is a fully responsive theme.  It is visually elegant and minimizes page weight for rapid response.  The theme was designed for politicians or organizations seeking to emphasize two-way communications with their constituents, but has broad use for any organization seeking a clean, attractive look and a clear content hierarchy.
 
 == Description ==
-Responsive Tabs is a fully responsive theme. It is visually elegant (Graphic design by Jane
-Winsor) and minimizes page weight for rapid response on all platforms. The theme was designed 
-for politicians or organizations seeking to emphasize two-way communications with their constituents, 
-but has broad use for any organization seeking a clean, attractive look and a clear content hierarchy. 
+Responsive Tabs is a fully responsive theme. It is visually elegant (Graphic design by Jane Winsor) and minimizes page weight for rapid response on all platforms. The theme was designed for politicians or organizations seeking to emphasize two-way communications with their constituents, but has broad use for any organization seeking a clean, attractive look and a clear content hierarchy. 
 
-The design premise of the theme is that (a) less can be more visually -- users should be
-able to focus on what they came to see; (b) at the same time, it should be obvious where to
-find any content even on a site with a wide range of content.  
+The design premise of the theme is that (a) less can be more visually -- users should be able to focus on what they came to see; (b) at the same time, it should be obvious where to find any content even on a site with a wide range of content.  
 
 Major Design Features
 +++ Tabbed design -- let the user know what the site contains without overwhelming them.  
-+++ Great flexibility as to content under each tab -- any page or post content, widgets (in movable widget areas) 
-    or shortcodes or the usual latest posts.
++++ Great flexibility as to content under each tab -- any page or post content, widgets (in movable widget areas) or shortcodes or the usual latest posts.
 +++ Customizer interface to allow easy font and color changes.
-+++ Elegant tiled approach for featuring favorite site content on the front page 
-    -- tiles for each favorite post will line up in rows of 4 in wide desktop view, 
-    but will reshuffle into rows of 3, 2 or 1 as the screenwidth decreases.
++++ Elegant tiled approach for featuring favorite site content on the front page -- tiles for each favorite post will line up in rows of 4 in wide desktop view, but will reshuffle into rows of 3, 2 or 1 as the screenwidth decreases.
 +++ Custom widgets for front page use -- post summaries with images, wide-format category and comment lists
 +++ Dropdown menu for the routine links like about, contact, etc. -- the things that users know to look for on every site.
 +++ Footer accordion for standard reference content
@@ -38,17 +30,12 @@ Major Design Features
 == Installation ==
 1.  Standard theme install -- install the theme files in a subdirectory called responsive-tabs in the wp-content/themes subdirectory.
 2.  From the Wordpress administrative dashboard go to Appearance>Themes to activate Responsive Tabs.
-3.  After activation, go to the administrative dashboard and select Appearance>Front Page Options>Tabs to configure front page tabs.  
-    Follow instructions there to set up your front page.  Note that you will choose which, if any, major widget areas you wish to display.
+3.  After activation, go to the administrative dashboard and select Appearance>Front Page Options>Tabs to configure front page tabs. Follow instructions there to set up your front page.  Note that you will choose which, if any, major widget areas you wish to display.
 4.  Go to Appearance>Widgets to put content into the widget areas that you have chosen to display in tabs in step 3.
-5.  Go to Appearance>Menu to select a menu to put in the Main Menu location that will appear in the left sidebar (in widescreen view) 
-    or under the drop down (in screens less than 1580 pixels wide).
+5.  Go to Appearance>Menu to select a menu to put in the Main Menu location that will appear in the left sidebar (in widescreen view) or under the drop down (in screens less than 1580 pixels wide).
 6.  Go to Appearance>Customize>Login Links in side menu to optionally append profile, dashboard and login/out links to the main menu.
-7.  Check Settings>Reading>Front page displays -- make sure that it is set to Your Latest Posts.  
-    That setting will invoke the Responsive Tabs tabbed front page.  However, you can also choose A Static Page and that will 
-    bypass the Responsive Tabs front page.
-8.  Check your site front page.  If you are happy with your front page tabs, return to Appearance>Front Page Options to 
-    configure the other options available there -- Accordions and Breadcrumbs.  If you are an experienced user, you can add custom CSS and scripts.
+7.  Check Settings>Reading>Front page displays -- make sure that it is set to Your Latest Posts. That setting will invoke the Responsive Tabs tabbed front page.  However, you can also choose A Static Page and that will bypass the Responsive Tabs front page.
+8.  Check your site front page.  If you are happy with your front page tabs, return to Appearance>Front Page Options to configure the other options available there -- Accordions and Breadcrumbs.  If you are an experienced user, you can add custom CSS and scripts.
 9.  Go to Appearance>Customize to choose, colors, fonts, etc.  
 10. Let us know if you have questions or concerns -- will@twoconstituentcommunication.com
 
