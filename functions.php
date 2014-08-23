@@ -52,7 +52,7 @@ if ( is_admin() ) {
 
 /*
 * enqueue script for layout -- menu control and legacy browser-width
-*/
+*/ 
 function responsive_tabs_theme_setup() {
 	if ( !is_admin() ) {
 		wp_register_script(

@@ -1,172 +1,164 @@
 /*
-* Manages column widths
-* Note that maxwidth of wrapper is 1600px and otherwise will be at windowsize so don't need to set. 
-* Same for login bar
-* Include media queries in css to minimize fouc -- could do it all in css if weren't worried to support older browsers
+* File: resize.js
+* 
+* Description: Implements menu show/hide and front page accordion show/hide
+* 					Manages column widths for older browsers (if don't support css calc)  
 *
-* This script also includes footer accordion logic
+* @package responsive
 */ 
 
 window.onresize = OnWindowResize;
 window.onload = ResponsiveTabs; 
 
-function TestSupportCalc(){
-	var tc = document.getElementById ( "calctest" ); 
-	var tcw = tc.offsetWidth;
-	if ( tcw == 3) {return true;} else {return false;}
+// tests for correct browser reading of an element in the footer
+function TestSupportCalc() {
+	
+	var testCalc = document.getElementById ( "calctest" ); 
+	var testCalcWidth = testCalc.offsetWidth;
+	if ( testCalcWidth == 3) {
+			return true;
+	} else {
+		return false;
+	}
 }
 
+// drops down the menu if it is hidden 
+function toggleSideMenu() {
+	     
+	var sideMenu  = document.getElementById ( "side-menu" ); 
+	var display = sideMenu.style.display;
+	var menuButton	= document.getElementById ( "side-menu-button");
 
-function toggle_side_menu()
-{     
-	var sm  = document.getElementById ( "side-menu" ); 
-	var display = sm.style.display;
-	var mb	= document.getElementById ( "side-menu-button");
-
-	if (display == "block" ) 
-	{
-		sm.style.display = "none";
+	if (display == "block" ) {
+		sideMenu.style.display = "none";
 		ResetSideMenu();
-	} 
-	else 
-	{
-	
-		sm.style.display = "block";
-		mb.innerHTML = "HIDE";
-
+	} else {
+		sideMenu.style.display = "block";
+		menuButton.innerHTML = "HIDE";
 	} 
 }
 
-
-function ResetSideMenu()
-{  
-	// alert("resetting menu");
+// manages appearance of menu -- either as a left sidebar or as a dropdown
+function ResetSideMenu() {  
+		
+	var innerWindowWidth = document.body.clientWidth; // note window.innerWidth seems to be less predictable wrt scroll bars
 	
-	var innerww = document.body.clientWidth; // note window.innerWidth seems to be less predictable wrt scroll bars
+	var sideMenu  = document.getElementById ( "side-menu" ); 
+	var menuButton	= document.getElementById ( "side-menu-button" );
+	var headerBarContentSpacer = document.getElementById ( "header-bar-content-spacer" );
 	
-	var sm  = document.getElementById ( "side-menu" ); 
-	var mb	= document.getElementById ( "side-menu-button");
-	var hbs = document.getElementById ( "header-bar-content-spacer");
+	menuButton.innerHTML = "MENU";
 	
-	mb.innerHTML = "MENU";
-	
-	if ( innerww > 1579 ) 
-	{
-		mb.style.display = "none";	
-		sm.style.display = "block"; 
-		hbs.style.display = "block"; 
-		sm.className = "sidebar-menu";
-	}
-	else
-	{ 
-		mb.style.display = "block";
-		sm.style.display = "none"; 
-		hbs.style.display = "none"; 
-		sm.className = "dropdown-menu";		
+	if ( innerWindowWidth > 1579 ) {
+		menuButton.style.display = "none";	
+		sideMenu.style.display = "block"; 
+		headerBarContentSpacer.style.display = "block"; 
+		sideMenu.className = "sidebar-menu";
+	} else { 
+		menuButton.style.display = "block";
+		sideMenu.style.display = "none"; 
+		headerBarContentSpacer.style.display = "none"; 
+		sideMenu.className = "dropdown-menu";		
 	}
 }
 
-
-
-function ResponsiveTabs()
-{
-
+// on load function
+function ResponsiveTabs() {
+	
 	AccordionInit();
 	ResetSideMenu();
-	if (!TestSupportCalc()) {
+	if ( ! TestSupportCalc() ) {
 		ResizeMajorContentAreas();
 	}
 }
 
 // this handles case where user opens menu and then resizes window with menu open
-// don't handle this case for IE<9; generates loop
-function OnWindowResize()
-{
-	if( TestSupportCalc()) // if relying on calc
-	{
+function OnWindowResize() {
+	if( TestSupportCalc() ) { // if browser supports calc (don't handle this case for IE<9; generates loop)
 		ResetSideMenu();
 	}
 }
 
-/* should parallel exactly all media queries in style.css to support IE<9, but not for smallest screen sizes (won't be runnning IE8 anyway) */
-/* do not do resize on window resize -- hard to reliably control looping in earlier browsers caused by resize upon the resize */
-function ResizeMajorContentAreas() 
-{
+/* legacy support for browsers that do not support calc function 
+/* should parallel exactly all media queries in style.css to support IE<10, but not for smallest screen sizes (won't be runnning IE8 anyway) */
+/* resize only one load do not do resize on window resize -- hard to reliably control looping in earlier browsers caused by resize upon the resize */
+function ResizeMajorContentAreas() { 
 
-	var innerww = document.body.clientWidth; // note window.innerWidth seems to be less predictable wrt scroll bars  
+	var innerWindowWidth = document.body.clientWidth; // note window.innerWidth seems to be less predictable wrt scroll bars  
 
-	var wr  = document.getElementById ( "wrapper" );
-	var hb = document.getElementById ( "header-bar");
+	var wrapper  = document.getElementById ( "wrapper" );
+	var headerBar = document.getElementById ( "header-bar");
 
-	wrapperwidth = Math.min(innerww - 120, 1460);
-	wr.style.width = wrapperwidth + "px"; // fix at appropriate width 
-	hb.style.width = wrapperwidth + "px";	
-	var ww = wr.offsetWidth; // should equal wrapperwidth + 120 b/c includes padding
-		
-	// alert ("ww = " + ww + "and innerww = " + innerww + " and wrapperwidth = " + wrapperwidth); 
-	
+	wrapperWidth = Math.min( innerWindowWidth - 120, 1460 );
+	wrapper.style.width = wrapperWidth + "px"; // fix at appropriate width 
+	headerBar.style.width = wrapperWidth + "px";	
+	var wrapperOffsetWidth = wrapper.offsetWidth; // should equal wrapperWidth + 120 b/c includes padding
 		
 	// additional elements whose widths we need to control in order of appearance
-	var vf  = document.getElementById ( "view-frame" ); 
-	var cw  = document.getElementById ( "content-wrapper" ); 
-	var sb = document.getElementById ( "right-sidebar-wrapper" );
-	var smsl= document.getElementById ( "header-bar-widget-wrapper-side-menu-copy");
-	var hbsl = document.getElementById ( "header-bar-widget-wrapper");
+	var viewFrame  = document.getElementById ( "view-frame" ); 
+	var contentWrapper  = document.getElementById ( "content-wrapper" ); 
+	var rightSidebarWrapper = document.getElementById ( "right-sidebar-wrapper" );
+	var headarBarWidgetWrapperSideMenuCopy= document.getElementById ( "header-bar-widget-wrapper-side-menu-copy" );
+	var headerBarWidgetWrapper = document.getElementById ( "header-bar-widget-wrapper" );
 
-	if ( ww > 1579 )
-	{	
+	if ( wrapperOffsetWidth > 1579 )	{	
 
-		vfwidth = wrapperwidth - 320;
-		vf.style.width = vfwidth + "px"; 
+		viewFrameWidth = wrapperWidth - 320;
+		viewFrame.style.width = viewFrameWidth + "px"; 
 		
-		if (undefined != cw )  {cw.style.width = "740px";} 
+		if (undefined != contentWrapper ) {
+			contentWrapper.style.width = "740px";
+		} 
 	        
-	        sbwidth = vfwidth - 740;
-	        if (undefined != sb ) {sb.style.width= sbwidth + "px";} 
-	}
-
-	else if ( ww > 1279)
-	{ 
-		vfwidth = wrapperwidth;
-		vf.style.width = vfwidth + "px"; 
+		rightSidebarWrapperWidth = viewFrameWidth - 740;
+		if ( undefined != rightSidebarWrapper ) {
+			rightSidebarWrapper.style.width= rightSidebarWrapperWidth + "px";
+		} 
+	} else if ( wrapperOffsetWidth > 1279) { 
+		viewFrameWidth = wrapperWidth;
+		viewFrame.style.width = viewFrameWidth + "px"; 
 		
-		if (undefined != cw )  {cw.style.width = "740px";} 
+		if ( undefined != contentWrapper )  {
+			contentWrapper.style.width = "740px";
+		} 
 	        
-	        sbwidth = vfwidth - 740;
+		rightSidebarWrapperWidth = viewFrameWidth - 740;
 
-		if (undefined != sb ) {sb.style.width= sbwidth + "px";} 
-	}
-	else 
-	{
-		smsl.style.display = "block";
-		hbsl.style.display = "none";
+		if ( undefined != rightSidebarWrapper ) {
+			rightSidebarWrapper.style.width= rightSidebarWrapperWidth + "px";
+		} 
+	} else {
 		
-		vfwidth = wrapperwidth;
-		vf.style.width = vfwidth + "px"; 
+		headarBarWidgetWrapperSideMenuCopy.style.display = "block";
+		headerBarWidgetWrapper.style.display = "none";
 		
-		if (undefined != cw )  {cw.style.width = "58%";} 
+		viewFrameWidth = wrapperWidth;
+		viewFrame.style.width = viewFrameWidth + "px"; 
+		
+		if ( undefined != contentWrapper )  {
+			contentWrapper.style.width = "58%";
+		} 
 	        
-		if (undefined != sb ) {sb.style.width= "42%";}  
+		if ( undefined != rightSidebarWrapper ) {
+			rightSidebarWrapper.style.width= "42%";
+		}  
 	}
 	
-        if ( ww < 840 ) 
-	{
+   if ( wrapperOffsetWidth < 840 )	{
 	
-		if (undefined != cw )  {cw.style.width = "100%";
-					cw.style.border = "0"} 
+		if (undefined != contentWrapper )  {contentWrapper.style.width = "100%";
+					contentWrapper.style.border = "0"} 
 	        
-		if (undefined != sb ) {sb.style.width= "100%";}  
+		if (undefined != rightSidebarWrapper ) {rightSidebarWrapper.style.width= "100%";}  
 
 	}		
     
-	//     alert ("Load or Resize to ww:" + ww); 
 }
 
 // accordion set up from http://www.elated.com/articles/javascript-accordion/
+var accordionItems = new Array();
 
-    var accordionItems = new Array();
-
-    function AccordionInit() {
+function AccordionInit() {
 
       // Grab the accordion items from the page
       var divs = document.getElementsByTagName( 'div' );
@@ -184,9 +176,9 @@ function ResizeMajorContentAreas()
       for ( var i = 0; i < accordionItems.length; i++ ) {
         accordionItems[i].className = 'accordionItem hide';
       }
-    }
+}
 
-    function toggleItem() {
+function toggleItem() {
       var itemClass = this.parentNode.className;
 
       // Hide all items
@@ -198,10 +190,10 @@ function ResizeMajorContentAreas()
       if ( itemClass == 'accordionItem hide' ) {
         this.parentNode.className = 'accordionItem';
       }
-    }
+}
 
-    function getFirstChildWithTagName( element, tagName ) {
+function getFirstChildWithTagName( element, tagName ) {
       for ( var i = 0; i < element.childNodes.length; i++ ) {
         if ( element.childNodes[i].nodeName == tagName ) return element.childNodes[i];
       }
-    }
+}

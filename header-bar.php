@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) or die( "No script kiddies please!" );
 	?>"> 	
  	<div id="header-bar">
 		<div id = "header-bar-content-spacer"></div>
-			<button id = "side-menu-button" onclick = "toggle_side_menu()"><?php _e( 'MENU', 'responsive-tabs' ); ?></button>
+			<button id = "side-menu-button" onclick = "toggleSideMenu()"><?php _e( 'MENU', 'responsive-tabs' ); ?></button>
 
 			<?php if ( is_active_sidebar ( 'header_bar_widget' ) ) { ?>	
 				<div id = "header-bar-widget-wrapper">
