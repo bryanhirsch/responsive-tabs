@@ -81,7 +81,7 @@ function responsive_tabs_customize_css() { ?>
 		}
 	
 		<?php	if( get_theme_mod( 'custom_css' ) > ''  ) {	
-			echo '<!-- responsive-tab css directly input in admin>appearance>customize(echoed in responsive-tabs-customization-css.php)-->
+			echo '/* responsive-tab css directly input in admin>appearance>customize(echoed in responsive-tabs-customization-css.php) */
 			' . esc_html( get_theme_mod( 'custom_css' ) ) ;
 	   } ?>
 	</style>
