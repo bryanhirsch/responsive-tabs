@@ -18,14 +18,14 @@ echo '<!-- responsive-tabs footer.php -->';
 *
 */
 
-if ( is_front_page() and isset( $responsive_tabs_theme_options_array['front_page_accordion_posts'] ) ) {
-	$accordion_posts_list = $responsive_tabs_theme_options_array['front_page_accordion_posts'];
-} elseif ( is_page() and isset( $responsive_tabs_theme_options_array['page_accordion_posts'] ) ) {
-	$accordion_posts_list = $responsive_tabs_theme_options_array['page_accordion_posts'];
-} elseif ( is_single() and isset( $responsive_tabs_theme_options_array['post_accordion_posts'] ) ) {
-	$accordion_posts_list = $responsive_tabs_theme_options_array['post_accordion_posts'];
-} elseif ( is_archive() and isset( $responsive_tabs_theme_options_array['archive_accordion_posts'] ) ) {
-	$accordion_posts_list = $responsive_tabs_theme_options_array['archive_accordion_posts'];
+if ( is_front_page() ) {
+	$accordion_posts_list = get_theme_mod( 'front_page_accordion' );
+} elseif ( is_page() ) {
+	$accordion_posts_list = get_theme_mod( 'page_accordion' );
+} elseif ( is_single() ) {
+	$accordion_posts_list = get_theme_mod( 'post_accordion' );
+} elseif ( is_archive() ) {
+	$accordion_posts_list = get_theme_mod( 'archive_accordion' );
 } else {
 	$accordion_posts_list = '';
 }

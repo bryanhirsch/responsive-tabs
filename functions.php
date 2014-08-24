@@ -31,26 +31,6 @@ include get_template_directory() . '/includes/responsive-tabs-customization-css.
 include get_template_directory() . '/includes/responsive-tabs-widgets.php'; 				
 
 /*
-* include admin classes for appearance>front page options
-*/
-$theme_options_tabs = array (
-   	array ( 'tabs', 'Tabs' ),
-   	array ( 'accordion', 'Accordion' ),
-		array ( 'breadcrumbs', 'Breadcrumbs' ),	   	
-   	array ( 'scripts', 'CSS/Scripts' ),
-);
-
-if ( is_admin() ) {
-	global $theme_options_tabs;
-	// include and construct the theme options page for tabs and accordions
-	include get_template_directory() . '/includes/class-responsive-tabs-theme-options.php';
-	// construct the tabs
-	foreach ( $theme_options_tabs as $tab ) {
-		include get_template_directory() . '/includes/class-responsive-tabs-' .  $tab[0] . '-tab.php';
-	}
-}
-
-/*
 * enqueue script for layout -- menu control and legacy browser-width
 */ 
 function responsive_tabs_theme_setup() {
@@ -65,19 +45,10 @@ function responsive_tabs_theme_setup() {
 add_action('wp_enqueue_scripts', 'responsive_tabs_theme_setup');
 
 /*
-*
-* get the theme options from the database into a variable, referenced globally in multiple theme templates
-*
-*/
-$responsive_tabs_theme_options_array = get_option( 'responsive_tabs_theme_options_array' );
-
-/*
-*  suppress bbpress bread crumbs on bbp template forms -- since may be loading broader breadcrumb plugins or offering own
+*  optionally suppress bbpress bread crumbs on bbp template forms -- since may be loading broader breadcrumb plugins or offering own
 */ 
-if ( isset ( $responsive_tabs_theme_options_array['suppress_bbpress_breadcrumbs'] ) ) {
-	if ( $responsive_tabs_theme_options_array['suppress_bbpress_breadcrumbs'] == true ) {
-		add_filter( 'bbp_no_breadcrumb', '__return_true' );
-	}
+if ( get_theme_mods( 'suppress_bbpress_breadcrumbs' ) ) {
+	add_filter( 'bbp_no_breadcrumb', '__return_true' );
 }
 /*
 * set up menu
@@ -91,6 +62,19 @@ add_action( 'init', 'responsive_tabs_register_menus' );
  * Register sidebars
 */
 function responsive_tabs_widgets_init() {
+	
+	for ( $index = 1; $index <= 15; $index++ ) { // register widget areas for each tab
+		register_sidebar( array(
+				'name' 				=> __( 'Tab ', 'responsive-tabs' ) . $index,
+				'description' 		=> __( 'Widget area for Tab content', 'responsive-tabs' ),
+				'id' 					=> 'home_widget_' . $index,
+				'class' 				=> '',
+				'before_widget' 	=> '<div class = "general-home-widget-wrapper"> ',
+				'after_widget' 	=> '</div>',
+				'before_title' 	=> '<h2 class = widgettitle>',
+				'after_title' 		=> '</h2>',
+			) );
+	}
 
 	register_sidebar( array(
 		'name' 				=> __( 'Header Bar Widget', 'responsive-tabs' ),
@@ -113,84 +97,6 @@ function responsive_tabs_widgets_init() {
 		'before_title' 	=> '<h2 class = widgettitle>',
 		'after_title' 		=> '</h2>',
 	) );
-
-	register_sidebar( array(
-		'name' 				=> __( 'Home Widget 1 (Bulk Area)', 'responsive-tabs' ),
-		'description' 		=> __( 'Large widget area to compose front page from multiple small widgets ', 'responsive-tabs' ),
-		'id' 					=> 'home_widget_1',
-		'class' 				=> '',
-		'before_widget' 	=> '<div class = "home-bulk-widget-wrapper"> ',
-		'after_widget' 	=> '</div>',
-		'before_title' 	=> '<h2 class = widgettitle>',
-		'after_title' 		=> '</h2>',
-	) );
-	
-	register_sidebar( array(
-		'name' 				=> __( 'Home Widget 2', 'responsive-tabs' ),
-		'description' 		=> __( 'Second Widget Option for Front Page Tabs', 'responsive-tabs' ),
-		'id' 					=> 'home_widget_2',
-		'class' 				=> '',
-		'before_widget' 	=> '<div class = "general-home-widget-wrapper"> ',
-		'after_widget' 	=> '</div>',
-		'before_title' 	=> '<h2 class = widgettitle>',
-		'after_title' 		=> '</h2>',
-	) );
-	
-	register_sidebar( array(
-		'name' 				=> __( 'Home Widget 3', 'responsive-tabs' ),
-		'description' 		=> __( 'Third Widget Option for Front Page Tabs', 'responsive-tabs' ),
-		'id' 					=> 'home_widget_3',
-		'class' 				=> '',
-		'before_widget' 	=> '<div class = "general-home-widget-wrapper"> ',
-		'after_widget' 	=> '</div>',
-		'before_title' 	=> '<h2 class = widgettitle>',
-		'after_title' 		=> '</h2>',
-	) );
-
-	register_sidebar( array(
-		'name' 				=> __( 'Home Widget 4', 'responsive-tabs' ),
-		'description' 		=> __( 'Fourth Widget Option for Front Page Tabs', 'responsive-tabs' ),
-		'id' 					=> 'home_widget_4',
-		'class' 				=> '',
-		'before_widget' 	=> '<div class = "general-home-widget-wrapper"> ',
-		'after_widget' 	=> '</div>',
-		'before_title' 	=> '<h2 class = widgettitle>',
-		'after_title' 		=> '</h2>',
-	) );
-
-	register_sidebar( array(
-		'name' 				=> __( 'Home Widget 5', 'responsive-tabs' ),
-		'description' 		=> __( 'Fifth Widget Option for Front Page Tabs', 'responsive-tabs' ),
-		'id' 					=> 'home_widget_5',
-		'class' 				=> '',
-		'before_widget' 	=> '<div class = "general-home-widget-wrapper"> ',
-		'after_widget' 	=> '</div>',
-		'before_title' 	=> '<h2 class = widgettitle>',
-		'after_title' 		=> '</h2>',
-	) );
-
-		register_sidebar( array(
-		'name' 				=> __( 'Home Widget 6', 'responsive-tabs' ),
-		'description' 		=> __( 'Sixth Widget Option for Front Page Tabs', 'responsive-tabs' ),
-		'id' 					=> 'home_widget_6',
-		'class' 				=> '',
-		'before_widget' 	=> '<div class = "general-home-widget-wrapper"> ',
-		'after_widget' 	=> '</div>',
-		'before_title' 	=> '<h2 class = widgettitle>',
-		'after_title' 		=> '</h2>',
-	) );
-	
-	register_sidebar( array(
-		'name' 				=> __( 'Home Widget 7', 'responsive-tabs' ),
-		'description' 		=> __( 'Seventh Widget Option for Front Page Tabs', 'responsive-tabs' ),
-		'id' 					=> 'home_widget_7',
-		'class' 				=> '',
-		'before_widget' 	=> '<div class = "general-home-widget-wrapper"> ',
-		'after_widget' 	=> '</div>',
-		'before_title' 	=> '<h2 class = widgettitle>',
-		'after_title' 		=> '</h2>',
-	) );
-
 	register_sidebar( array(
 		'name' 				=> __( 'Post Sidebar', 'responsive-tabs' ),
 		'description' 		=> __( 'Displayed with Posts', 'responsive-tabs' ),
@@ -264,6 +170,7 @@ add_theme_support( 'post-thumbnails', array ( 'post', 'page'));
 
 add_theme_support( 'html5', array( 'search-form' ) );
 
+add_filter( 'widget_text', 'do_shortcode' );
 /*
 * add metabox for post width (see nonce technique at http://www.wproots.com/complex-meta-boxes-in-wordpress/) 
 */
@@ -422,4 +329,28 @@ function responsive_tabs_clean_post_list($post_list)  {
 	}
 
 	return $post_list_clean;
+}
+/*
+* function to sanitize a list of alphanumerics in comma separated string
+*
+*/
+function responsive_tabs_title_list($title_list)  { 
+   	
+   $title_list_array = explode( ',', $title_list);
+	$title_list_clean = '';      
+   foreach( $title_list_array as $title_list_entry ) {
+      $title_list_addition = esc_attr( trim( $title_list_entry ) ) > '' ? esc_attr( trim( $title_list_entry ) ) . ', ' : '';
+	   $title_list_clean .= $title_list_addition;
+   }		
+	if( $title_list_clean > '' ) { // no trailing comma-spaces
+		$title_list_clean = rtrim( $title_list_clean, ', ' );
+	}
+
+	return $title_list_clean;
+}
+/*
+* Null function to pass through scripts/css with minimal sanitization
+*/
+function responsive_tabs_pass_through($unfiltered) {
+	return force_balance_tags($unfiltered);
 }

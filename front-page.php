@@ -54,93 +54,101 @@ if ( 'posts' != get_option( 'show_on_front' ) ) { // use page template
 	* tabs area
 	*
 	*/
-	global $responsive_tabs_theme_options_array;
-	if( isset ( $responsive_tabs_theme_options_array['tab_titles'] ) ) {
-		if ( $responsive_tabs_theme_options_array['tab_titles'] > '' && $responsive_tabs_theme_options_array['tab_content'] > '') {
+	
+	
+   $default_active_tab 	=  get_theme_mod( 'landing_tab' ) - 1; // admin shows tabs starting from 1
+	$active_tab 			= isset( $_GET[ 'frontpagetab' ] )  ? $_GET[ 'frontpagetab' ] : $default_active_tab;
+	$tab_titles 			= get_theme_mod( 'tab_titles' );
+	$tab_titles_array 	= explode( ',', $tab_titles );
+	?>
+	
+   <div id = "main-tabs-wrapper">
 		
-		   $default_active_tab =  $responsive_tabs_theme_options_array['tab_active'];
-			$active_tab = isset( $_GET[ 'frontpagetab' ] )  ? $_GET[ 'frontpagetab' ] : $default_active_tab;
-		
-			$tab_titles = $responsive_tabs_theme_options_array['tab_titles'];
-			$tab_content =  $responsive_tabs_theme_options_array['tab_content'];
-			        
-			$tab_titles_array = explode( ',', $tab_titles );
-			$tab_content_array = explode( ',', $tab_content );
-			$tab_content_raw = isset( $tab_content_array[$active_tab] ) ? $tab_content_array[$active_tab] : '';
-			$tab_content = trim( $tab_content_raw );    
-			?>
-			
-		   <div id = "main-tabs-wrapper">
-				
-				<!-- desktop tabs -->   	
-		   	<div id="main-tabs">
-		   		<ul class = "main-tabs-headers"><?php
-				   	$tab_title_count = 0;
-				    	foreach ( $tab_titles_array as $tab_title ) {
-				    		$nav_tab_active = $active_tab == $tab_title_count ? 'nav-tab-active' : 'nav-tab-inactive';
-							echo '<li class="' . $nav_tab_active . '"><a href="/?frontpagetab=' . $tab_title_count . '"> '. esc_html( $tab_title )  .'</a></li>';
-							$tab_title_count = $tab_title_count + 1;    			
-						} ?> 
-		        </ul>
-		                
-		        <!-- mobile tabs -->
-		        <div id = "main-tabs-dropdown-wrapper">
-						<select id = "main-tabs-dropdown-id" name = "main-tabs-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
-		        			<?php $tab_title_count = 0;
-							foreach ( $tab_titles_array as $tab_title ) {
-		 						if( $active_tab == $tab_title_count ) {
-									echo '<option value="">' . esc_html( $tab_title )  . '</option>';
-								}
-								$tab_title_count = $tab_title_count + 1;   
-							} 
-							$tab_title_count = 0;
-							foreach ( $tab_titles_array as $tab_title ) {
-		    					if( $active_tab != $tab_title_count ) {    		
-									echo '<option value="/?frontpagetab=' . $tab_title_count . '"> ' . esc_html( $tab_title ) . '</option>';
-								}
-								$tab_title_count = $tab_title_count + 1;    			
-							}?> 
-		        		</select>
-		        	</div>
-		    
-				<!-- display content for active tab-->
-					<div class="main-tab-content"><?php
-						
-						if ( strtolower( $tab_content ) == "latest_posts") { 				
-						// display standard latest posts list
-						   get_template_part('post','list'); 
-						} elseif( is_active_sidebar( $tab_content ) ) { 
-						// display sidebar
-							dynamic_sidebar( $tab_content );
-							echo '<div class="horbar-clear-fix"></div>'; 
-						} elseif( is_numeric( $tab_content ) ) { 			
-						// display post or page and display content
-							$post_f = get_post( $tab_content );
-							$post_content = apply_filters( 'the_content', $post_f->post_content );
-							echo  '<div id="front-page-post-entry">' . $post_content . '</div>'; 		
-						}	else { 													
-						// do shortcode
-			     			$tab_content_return = do_shortcode( '[' . trim( $tab_content ) . ']' );
-							if ( $tab_content_return != '[' . trim( $tab_content ) . ']' ) { // shortcode worked
-								if( strpos ( $tab_content, 'bbp-topic-form' ) && ( !is_user_logged_in() || !current_user_can( 'edit_topics' ) ) ) { // close bbpress new topic form vulnerability
-									_e( 'Please login to create new topic', 'responsive-tabs' );  
-								} else {
-									echo $tab_content_return;
-								}
-							} else { // supported content options exhausted -- show error message
-								echo '<h4>' . __( 'Check your setting corresponding to this tab under Dashboard>Appearance>Front Page Options>Tabs>Content for tabs', 'responsive-tabs') . '</h4>' ;							
-							}							
-						} // last two cases for content processing -- short code or nothing
-						?>
-					<div><!-- main-tab-content -->
-				<div><!-- main-tabs -->
-			<div><!-- main-tabs-wrapper --><?php
-		} 	else { // appearance>front page options> tabs: tab title list was blank or tab content list was blank
-			echo '<h3>' .__( 'Please visit Dashboard>Appearance>Front Page Options>Tabs to finish setting up your front page tabs.', 'responsive-tabs' ) . '</h3>';
-		}
-	} 	else { // appearance>front page options> tabs have not yet been visited in set up process
-		echo '<h3>' .__( 'Please visit Dashboard>Appearance>Front Page Options>Tabs to set up your front page tabs.', 'responsive-tabs' ) . '</h3>';
-	}
+		<!-- desktop tabs -->   	
+   	<div id="main-tabs">
+   		<ul class = "main-tabs-headers"><?php
+		   	$tab_title_count = 0;
+		    	foreach ( $tab_titles_array as $tab_title ) {
+		    		$nav_tab_active = $active_tab == $tab_title_count ? 'nav-tab-active' : 'nav-tab-inactive';
+					echo '<li class="' . $nav_tab_active . '"><a href="/?frontpagetab=' . $tab_title_count . '"> '. esc_html( trim( $tab_title ) )  .'</a></li>';
+					$tab_title_count = $tab_title_count + 1;    			
+				} ?> 
+        </ul>
+                
+        <!-- mobile tabs -->
+        <div id = "main-tabs-dropdown-wrapper">
+				<select id = "main-tabs-dropdown-id" name = "main-tabs-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
+        			<?php $tab_title_count = 0;
+					foreach ( $tab_titles_array as $tab_title ) {
+ 						if( $active_tab == $tab_title_count ) {
+							echo '<option value="">' . esc_html( $tab_title )  . '</option>';
+						}
+						$tab_title_count = $tab_title_count + 1;   
+					} 
+					$tab_title_count = 0;
+					foreach ( $tab_titles_array as $tab_title ) {
+    					if( $active_tab != $tab_title_count ) {    		
+							echo '<option value="/?frontpagetab=' . $tab_title_count . '"> ' . esc_html( $tab_title ) . '</option>';
+						}
+						$tab_title_count = $tab_title_count + 1;    			
+					}?> 
+        		</select>
+        	</div>
+    
+		<!-- display content for active tab-->
+			<div class="main-tab-content"><?php
+				if( is_active_sidebar( 'home_widget_' . ( $active_tab + 1 ) ) ) { 
+					// display sidebar
+					dynamic_sidebar( 'home_widget_' . ( $active_tab + 1 ) );
+					echo '<div class="horbar-clear-fix"></div>'; 
+				} else {
+					if ( strtolower( trim( $tab_titles_array[$active_tab] ) ) == "getting started" ) { ?>
+						<div class = "responsive-tabs-notice">
+							<h1> <?php _e('Welcome to Responsive Tabs!', 'responsive-tabs' ); ?> </h1> 
+							<?php 	_e( 	'<h4>Overview of Responsive Tabs</h4>
+    			<p>The Responsive Tabs theme gives you great structural flexibility in defining and redefining your front page content. 
+    			Visit <a href="http://twowayconstituentcommunication.com">twowayconstituentcommunication.com</a> for a simple example of this theme in action.  
+    			Visit <a href = "http://WillBrownsberger.com">WillBrownsberger.com</a> for a more fully-developed implementation of this theme.  
+    			Please feel free to email <a href="mailto: will@twowayconstituentcommunication.com">will@twowayconstituentcommunication.com</a> with any questions.</a></p>
+				<h4>Basic Setup</h4>    		  	
+    		  	<ol>
+    		  		<li>Enter the titles you want, separated by commas, in Appearance>Customize>Tab Titles, like so: <br />
+    		  		<code>Favorites, Latest Posts, Latest Comments</code></li>
+    		  		<li>You will see your new tabs momentarily in the customizer.  Click on one and the Widget area for that Tab will show as a section in the customizer. </li>
+    		  		<li>Populate the widget and repeat for each tab.</li>
+    		  		<li>If you want people to land on something other than the left most tab (Tab 1), enter the number for that tab.</li>
+    		  		<li><em>Save Changes</em></li>
+    		  		<li>You can set all other theme options in  Appearance>Customize.</li>
+    		  	</ol>'   , 'responsive-tabs');
+    	_e( 	'<h4>More about Content Options in Front Page Tabs</h4>
+    			<ul>
+    		  		<li>For a newspaper look, populate your landing tab widget area with 10 or 15 copies of the Front Page Post Summary widget.  The summary widgets will show as rows of tiles in desktop view but will reshuffle into a column in mobile view.</strong></em></li>
+					<li>For a category list or comment list formatted consistently with this theme, use the included widgets.</li>     		  		
+    		  		<li>To show the standard latest posts list, just use Latest Posts as a tab title and leave the widget area for the tab empty.</li>
+    		  		<li>To show plugin content with a shortcode in a tab, drop a text widget in the tab and put the shortcode in the text widget. Short codes that can look good in tabs include <a href="http://www.nextgen-gallery.com/nextgen-gallery-shortcodes/" target = "_blank">NextGen Gallery</a>,  
+    		  			a <a href="http://tablepress.org/documentation/"  target = "_blank">TablePress table</a>, or 
+  						a <a href="http://codex.bbpress.org/shortcodes/"  target = "_blank">bbPress forum</a>.</li> 
+    		  		<li>You can enter any text or images you wish into a text widget and many plugins are available for importing individual post or page content into a widget.</li>
+    		  	</ul>'   , 'responsive-tabs');?>
+   	_e(	'<h4>Note: This page will disappear when you change this tab, but you can get help in the Appearance>Customize>Tab Titles or at', 'responsive-tabs' );
+   	echo '<a href="http://twowayconstituentcommunication.com/setup-notes-for-responsive-tabs-theme/">TwoWayConstituentCommunication.Com</a>.';
+						</div>	
+					<?php } else if ( strtolower( trim( $tab_titles_array[$active_tab] ) ) == "latest posts" ) { 				
+					// display standard latest posts list
+					   get_template_part('post','list'); 
+					} else { ?>
+						<div class = "responsive-tabs-notice">
+							<h3> <?php printf ( __( 'Nothing yet in the widget area for tab %d.', 'responsive-tabs' ), $active_tab + 1 ); ?> </h3> 
+							<h4> <?php printf ( __( 'To populate, please go to Dashboard>Appearance>Customize>Widgets: Tab %d.', 'responsive-tabs' ), $active_tab + 1 ); ?> </h4>
+							<h4> <?php printf ( __( 'Note: When viewing the front page in Customize, to see Widgets: Tab %d, click on this tab, titled "%s."', 'responsive-tabs' ), $active_tab + 1, trim( $tab_titles_array[$active_tab] ) ); ?> </h4>						
+						</div>							
+					<?php }							
+				}
+				?>
+			<div><!-- main-tab-content -->
+		<div><!-- main-tabs -->
+	<div><!-- main-tabs-wrapper --><?php
+
 
 	get_footer();
 } // close use this template condition

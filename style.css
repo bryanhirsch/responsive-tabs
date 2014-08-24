@@ -704,6 +704,13 @@ li.nav-tab-active  {
 	text-decoration: none;
 }
 
+.responsive-tabs-notice {
+	background: #eef;
+	border: 1px solid #aaa;
+	margin: 20px;
+	padding: 20px;
+}
+
 /* post styles */
 
 #content-header,
