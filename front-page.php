@@ -54,12 +54,19 @@ if ( 'posts' != get_option( 'show_on_front' ) ) { // use page template
 	* tabs area
 	*
 	*/
-	
-	
-   $default_active_tab 	=  get_theme_mod( 'landing_tab' ) - 1; // admin shows tabs starting from 1
+	$mods = get_theme_mods();
+		
+	$default_active_tab 	=  max ( get_theme_mod( 'landing_tab' ) - 1 , 0 ); // admin shows tabs starting from 1
+
 	$active_tab 			= isset( $_GET[ 'frontpagetab' ] )  ? $_GET[ 'frontpagetab' ] : $default_active_tab;
+
 	$tab_titles 			= get_theme_mod( 'tab_titles' );
+	
+	if ( ! $tab_titles > '' ) {
+		$tab_titles 		= 'getting started, latest posts';
+	}
 	$tab_titles_array 	= explode( ',', $tab_titles );
+	
 	?>
 	
    <div id = "main-tabs-wrapper">
@@ -101,7 +108,7 @@ if ( 'posts' != get_option( 'show_on_front' ) ) { // use page template
 					// display sidebar
 					dynamic_sidebar( 'home_widget_' . ( $active_tab + 1 ) );
 					echo '<div class="horbar-clear-fix"></div>'; 
-				} else {
+				} else { 
 					if ( strtolower( trim( $tab_titles_array[$active_tab] ) ) == "getting started" ) { ?>
 						<div class = "responsive-tabs-notice">
 							<h1> <?php _e('Welcome to Responsive Tabs!', 'responsive-tabs' ); ?> </h1> 
@@ -129,10 +136,11 @@ if ( 'posts' != get_option( 'show_on_front' ) ) { // use page template
     		  			a <a href="http://tablepress.org/documentation/"  target = "_blank">TablePress table</a>, or 
   						a <a href="http://codex.bbpress.org/shortcodes/"  target = "_blank">bbPress forum</a>.</li> 
     		  		<li>You can enter any text or images you wish into a text widget and many plugins are available for importing individual post or page content into a widget.</li>
-    		  	</ul>'   , 'responsive-tabs');?>
-   	_e(	'<h4>Note: This page will disappear when you change this tab, but you can get help in the Appearance>Customize>Tab Titles or at', 'responsive-tabs' );
-   	echo '<a href="http://twowayconstituentcommunication.com/setup-notes-for-responsive-tabs-theme/">TwoWayConstituentCommunication.Com</a>.';
-						</div>	
+    		  	</ul>'   , 'responsive-tabs');   	
+    	_e(	'<h4>Note: This page will disappear when you change this tab\'s title or content, but you can always get help in Appearance>Customize>Tab Titles or at ', 'responsive-tabs' );
+   	echo '<a href="http://twowayconstituentcommunication.com/setup-notes-for-responsive-tabs-theme/" target = "_blank" >TwoWayConstituentCommunication.Com</a>.';
+					?>	</div>	
+					<br />
 					<?php } else if ( strtolower( trim( $tab_titles_array[$active_tab] ) ) == "latest posts" ) { 				
 					// display standard latest posts list
 					   get_template_part('post','list'); 
@@ -145,9 +153,9 @@ if ( 'posts' != get_option( 'show_on_front' ) ) { // use page template
 					<?php }							
 				}
 				?>
-			<div><!-- main-tab-content -->
-		<div><!-- main-tabs -->
-	<div><!-- main-tabs-wrapper --><?php
+			<div><!-- close main-tab-content -->
+		<div><!-- close main-tabs -->
+	<div><!-- close main-tabs-wrapper --><?php
 
 
 	get_footer();

@@ -129,12 +129,22 @@ function responsive_tabs_theme_customizer( $wp_customize ) {
 	) );
 	
 	$wp_customize->add_setting( 'highlight_color', array(
-	    'default' => '#D10A0A',
+	    'default' => '#436A88',
 	    'sanitize_callback' => 'sanitize_hex_color'
 	) );
 	
 	$wp_customize->add_setting( 'highlight_headline_color', array(
 	    'default' => '#fff',
+	    'sanitize_callback' => 'sanitize_hex_color'
+	) );
+	
+	$wp_customize->add_setting( 'highlight_headline_link_color', array(
+	    'default' => '#fff',
+	    'sanitize_callback' => 'sanitize_hex_color'
+	) );
+	
+	$wp_customize->add_setting( 'highlight_headline_link_hover_color', array(
+	    'default' => '#ccc',
 	    'sanitize_callback' => 'sanitize_hex_color'
 	) );
 	
@@ -353,10 +363,24 @@ function responsive_tabs_theme_customizer( $wp_customize ) {
 	) ) );
 
 	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'highlight_headline_color', array(
-		'label'     => __( 'Highlight Headline Color', 'responsive-tabs' ),
+		'label'     => __( 'Headline Color', 'responsive-tabs' ),
 		'section'   => 'colors',
 		'settings'  => 'highlight_headline_color',
 		'priority' 	=> 50,
+	) ) );
+
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'highlight_headline_link_color', array(
+		'label'     => __( 'Headline Link Color', 'responsive-tabs' ),
+		'section'   => 'colors',
+		'settings'  => 'highlight_headline_link_color',
+		'priority' 	=> 52,
+	) ) );
+
+	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'highlight_headline_link_hover_color', array(
+		'label'     => __( 'Headline Link Hover Color', 'responsive-tabs' ),
+		'section'   => 'colors',
+		'settings'  => 'highlight_headline_link_hover_color',
+		'priority' 	=> 54,
 	) ) );
 
 	$wp_customize->add_control( new WP_Customize_Color_Control( $wp_customize, 'home_widgets_title_color', array(

@@ -532,10 +532,10 @@ ul.children {
 
 /* highlight area */
 #highlight-text-area {
-	background: #D10A0A;
+	background: #436A88;
 	color: white; 
 	font-family: Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
-	min-height: 252px;
+	min-height: 250px;
 /* min-height to match logo */	
 }
 
@@ -572,6 +572,15 @@ ul.children {
 #highlight-headline p,
 #highlight-subhead p {
 	margin: 0;
+}
+
+#highlight-headline a  {
+	color: #fff;
+	text-decoration: none;
+}
+
+#highlight-headline a:hover {
+	color: #ccc;
 }
 
 

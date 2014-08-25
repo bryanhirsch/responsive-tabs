@@ -45,6 +45,29 @@ function responsive_tabs_theme_setup() {
 add_action('wp_enqueue_scripts', 'responsive_tabs_theme_setup');
 
 /*
+* initialize key mods on first install in case user does not first enter customizer before viewing front page
+*
+*/
+$mods = get_theme_mods(); 
+if ( $mods[0] = 'false' ) {
+	set_theme_mod( "site_short_title"	, "Set mobile short title" );
+	set_theme_mod( "highlight_headline"	, "Highlight Headline" );
+	set_theme_mod( "highlight_subhead"	, "Highlight Subhead" );
+	set_theme_mod( "highlight_headline_small_screen" 	, "Highlight Headline Small Screen" );
+	set_theme_mod( "tab_titles"			, "Getting Started, Latest Posts" );
+	set_theme_mod( "landing_tab"			, "1" );
+	set_theme_mod( "show_login_links"	, true );
+	set_theme_mod( "show_breadcrumbs"	, true );
+	set_theme_mod( "category_home"		, "1" );
+	set_theme_mod( "date_home"				, "1" );
+	set_theme_mod( "author_home"			, "1" );
+	set_theme_mod( "search_home"			, "1" );
+	set_theme_mod( "tag_home"				, "1" );
+	set_theme_mod( "page_home"				, "1" );
+	set_theme_mod( "header_image"			, get_template_directory_uri() . "/images/initial-header.png");
+}
+
+/*
 *  optionally suppress bbpress bread crumbs on bbp template forms -- since may be loading broader breadcrumb plugins or offering own
 */ 
 if ( get_theme_mods( 'suppress_bbpress_breadcrumbs' ) ) {
@@ -149,9 +172,10 @@ add_action( 'widgets_init', 'responsive_tabs_widgets_init' );
 
 $header_default = array(
 	'width'         => 300,
-	'height'        => 325,
+	'height'        => 250,
 	'header-text'   => false,
 	'uploads'       => true,
+	'default'		 => get_template_directory_uri() . '/images/initial-header.png',
 );
 add_theme_support( 'custom-header', $header_default ); // note -- installed as background image in theme customizer
 
