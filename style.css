@@ -888,13 +888,13 @@ a.read-more-link {
 }
 
 #side-menu ul li li {
-	padding-left: 40px; 
+//	padding-left: 1em; 
 }	
 
 #side-menu ul li a { 
-	display:block;  
-	height:28px; 
-  	text-decoration:none;  
+	display: block;  
+	line-height: 28px; 
+  	text-decoration: none;  
 }
 
 #side-menu.dropdown-menu a {
@@ -902,9 +902,27 @@ a.read-more-link {
 }
 
 #side-menu ul li a:before { 
-	content: ">";
+	content: '>';
 	color: #ccc;
 }
+
+#side-menu ul li li a:before { 
+	content: ">>";
+	color: #ccc;
+}
+
+#side-menu ul li li li a:before { 
+	content: ">>>";
+	color: #ccc;
+}
+
+#side-menu ul li li li li a:before { 
+	content: ">>>>";
+	color: #ccc;
+}
+
+
+
 
 #side-menu ul li a:hover {  
 	-moz-box-shadow:10px 10px 20px #000000;

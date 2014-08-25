@@ -48,11 +48,12 @@ add_action('wp_enqueue_scripts', 'responsive_tabs_theme_setup');
 * initialize key mods on first install in case user does not first enter customizer before viewing front page
 *
 */
-$mods = get_theme_mods(); 
-if ( $mods[0] = 'false' ) {
+$tt_mod = get_theme_mod( 'tab_titles' ) ;
+
+if ( $tt_mod === false ) {
 	set_theme_mod( "site_short_title"	, "Set mobile short title" );
-	set_theme_mod( "highlight_headline"	, "Highlight Headline" );
-	set_theme_mod( "highlight_subhead"	, "Highlight Subhead" );
+	set_theme_mod( "highlight_headline"	, "<p>Responsive Tabs</p><p>Theme Initialization</p>" );
+	set_theme_mod( "highlight_subhead"	, "<p>Set up your theme in Appearance>Customize</p>" );
 	set_theme_mod( "highlight_headline_small_screen" 	, "Highlight Headline Small Screen" );
 	set_theme_mod( "tab_titles"			, "Getting Started, Latest Posts" );
 	set_theme_mod( "landing_tab"			, "1" );

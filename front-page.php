@@ -121,7 +121,7 @@ if ( 'posts' != get_option( 'show_on_front' ) ) { // use page template
     		  	<ol>
     		  		<li>Enter the titles you want, separated by commas, in Appearance>Customize>Tab Titles, like so: <br />
     		  		<code>Favorites, Latest Posts, Latest Comments</code></li>
-    		  		<li>You will see your new tabs momentarily in the customizer.  Click on one and the Widget area for that Tab will show as a section in the customizer. </li>
+    		  		<li>You will see your new tabs momentarily in the customizer.  Click on a tab title, while still in the customizer, and the Widget area for that Tab will show as a section in the customizer (likely near the bottom of the section list). </li>
     		  		<li>Populate the widget and repeat for each tab.</li>
     		  		<li>If you want people to land on something other than the left most tab (Tab 1), enter the number for that tab.</li>
     		  		<li><em>Save Changes</em></li>
