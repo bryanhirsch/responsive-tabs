@@ -10,8 +10,6 @@
 /* assure that will die if accessed directly */ 
 defined( 'ABSPATH' ) or die( "Unauthorized direct script access." );
 
-global $responsive_tabs_theme_options_array; 
-
 echo '<!-- responsive-tabs footer.php -->';
 /*
 * accordion footer 

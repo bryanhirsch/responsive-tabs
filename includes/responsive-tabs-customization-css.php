@@ -17,6 +17,7 @@ function responsive_tabs_customize_css() { ?>
 	
 		body {
 			color: <?php echo get_theme_mod( 'body_text_color' ); ?>;
+			font-family: <?php echo get_theme_mod( 'body_text_font_family' ); ?>;
 	  		font-size: <?php echo get_theme_mod( 'body_text_font_size' ); ?>;
 	  	}
 	  	
