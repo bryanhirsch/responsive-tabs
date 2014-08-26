@@ -100,11 +100,11 @@ function ResizeMajorContentAreas() {
 	var wrapperOffsetWidth = wrapper.offsetWidth; // should equal wrapperWidth + 120 b/c includes padding
 		
 	// additional elements whose widths we need to control in order of appearance
-	var viewFrame  = document.getElementById ( "view-frame" ); 
-	var contentWrapper  = document.getElementById ( "content-wrapper" ); 
-	var rightSidebarWrapper = document.getElementById ( "right-sidebar-wrapper" );
-	var headarBarWidgetWrapperSideMenuCopy= document.getElementById ( "header-bar-widget-wrapper-side-menu-copy" );
-	var headerBarWidgetWrapper = document.getElementById ( "header-bar-widget-wrapper" );
+	var viewFrame  								= document.getElementById ( "view-frame" ); 
+	var contentWrapper  							= document.getElementById ( "content-wrapper" ); 
+	var rightSidebarWrapper 					= document.getElementById ( "right-sidebar-wrapper" );
+	var headerBarWidgetWrapperSideMenuCopy	= document.getElementById ( "header-bar-widget-wrapper-side-menu-copy" );
+	var headerBarWidgetWrapper 				= document.getElementById ( "header-bar-widget-wrapper" );
 
 	if ( wrapperOffsetWidth > 1579 )	{	
 
@@ -134,8 +134,12 @@ function ResizeMajorContentAreas() {
 		} 
 	} else {
 		
-		headarBarWidgetWrapperSideMenuCopy.style.display = "block";
-		headerBarWidgetWrapper.style.display = "none";
+		if ( undefined != headerBarWidgetWrapperSideMenuCopy  ) {
+			headerBarWidgetWrapperSideMenuCopy.style.display = "block";
+		}
+		if ( undefined != headerBarWidgetWrapper ) {
+			headerBarWidgetWrapper.style.display = "none";
+		}
 		
 		viewFrameWidth = wrapperWidth;
 		viewFrame.style.width = viewFrameWidth + "px"; 

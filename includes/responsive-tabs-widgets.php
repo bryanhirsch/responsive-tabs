@@ -271,45 +271,82 @@ class Front_Page_Post_Summary extends WP_Widget {
  		
  		$output = '<!-- responsive-tabs Front_Page_Post_Summary widget, includes/responsive-tabs-widgets.php -->';
 		$title = apply_filters( 'widget_title', empty( $instance['title'] ) ? '' : $instance['title'], $instance, $this->id_base );
-		$output .=  $before_widget;
-		if ( $title ) {
-			$output .= $before_title . $title . $after_title;
-		} 		
- 		$output .= '<div class ="textwidget">';
+		$output .=  $before_widget;										// is blank in home widget areas
 		
-		$post_list =  $instance['post_list'];
-		$single_display_mode = $instance['single_display_mode'];
-		$post_list_array = explode( ',', $post_list );
-		
-		if ( count( $post_list_array ) > 1) { // if have a list of post id's, output a list of links
-			$output .= '<ul class="front-page-widget-post-list">';
-				foreach ( $post_list_array as $post_ID ) {
-					$permalink 	= get_permalink( $post_ID );
-					$title 		= get_the_title( $post_ID );
-					if( $title ) {
-						$output .= '<li><a href="'. $permalink . '" title = "' . __( 'Read post ', 'responsive-tabs' ) . $title . '">' . $title .'</a></li>';
-					}		
-				}		
-			$output .= '</ul>';
-		} elseif( count( $post_list_array ) == 1 ) { // if have exactly one, show excerpt or image or both according to options set
-			foreach ( $post_list_array as $post_ID ) {
-					$permalink 	= get_permalink( $post_ID );
-					$post 		= get_post( $post_ID );
-					$title 		= get_the_title( $post_ID );
-					
-					if( $single_display_mode == 'excerpt' ) {				
-						$output .= apply_filters( 'the_excerpt', $post->post_excerpt ) . '<a href="'. $permalink . '" title = "' . __( 'Read post ', 'responsive-tabs' )  . $title . '">' . __( 'Read More', 'responsive-tabs') . '&raquo;</a>';	
-					}	elseif( $single_display_mode == 'image' ) {				
-						$output .=  '<a href="'. $permalink . '" title = "' . __( 'Read post ', 'responsive-tabs' ) . $title . '"> ' . get_the_post_thumbnail( $post_ID, 'front-page-thumb' ) . '</a>';		  
-			      } elseif( $single_display_mode == 'both' ) {
-				      $output .=  '<div class = "bulk-image-float-left"><a href="'. $permalink . '" title = "' . __( 'Read post ', 'responsive-tabs' )  . $title . '"> ' . get_the_post_thumbnail($post_ID, 'front-page-half-thumb') . '</a></div>' .
-				      apply_filters( 'the_excerpt', $post->post_excerpt ) . '<a href="'. $permalink . '" title = "' . __( 'Read post ', 'responsive-tabs' ) . $title . '">' . __( 'Read More', 'responsive-tabs') . '&raquo;</a>';	
-					}			  
-			  }     
-		} 
+		$responsive_tabs_widget_width = isset( $instance['responsive_tabs_widget_width'] ) ? $instance['responsive_tabs_widget_width'] : 'pebble';			
 
-		$output .= '</div>'; 
-		$output .= $after_widget ;
+		/* set up for variable widget widget */
+		if ( $responsive_tabs_widget_width == 'pebble' ) {
+			$output .= '<div class = "home-bulk-widget-wrapper">'; // div limits height and width and floats the widgets left
+			$responsive_tabs_image_width		= 'front-page-thumb';
+			$responsive_tabs_both_image_width 	= 'front-page-half-thumb';
+		} else {
+			$output .= '<div class = "home-bulk-text-widget">';
+			$responsive_tabs_image_width 		= 'front-page-thumb';
+			$responsive_tabs_both_image_width 	= 'front-page-thumb';
+		}		
+
+		if ( $title ) {
+			$output .= $before_title . $title . $after_title; 		// <h2 class = 'widgettitle'> . . . </h2>
+		} 		
+
+		$free_form_text 		= isset( $instance['free_form_text'] ) ? $instance['free_form_text'] : '';
+		if ( $free_form_text > '' ) {
+			$output .=  apply_filters( 'the_content', $free_form_text );		
+		} else {
+					
+			$post_list 				= isset( $instance['post_list'] ) 				? $instance['post_list'] : '';
+			$single_display_mode = isset( $instance['single_display_mode'] ) 	? $instance['single_display_mode'] : '';
+			
+			$post_list_array 		= explode( ',', $post_list );
+	
+			if ( count( $post_list_array ) > 1) { // if have a list of post id's, output a <ul> list of links
+				$output .= '<ul class="front-page-widget-post-list">';
+					foreach ( $post_list_array as $post_ID ) {
+						$permalink 	= get_permalink( $post_ID );
+						$title 		= get_the_title( $post_ID );
+						if( $title && $permalink ) {
+							$output .= '<li><a href="'. $permalink . '" title = "' . __( 'Read post ', 'responsive-tabs' ) . $title . '">' . $title .'</a></li>';
+						} else {
+							$output .= 'Check post list IDs in Front Page Post Summary widget';
+						}			
+					}		
+				$output .= '</ul>';
+			} elseif( count( $post_list_array ) == 1 ) { // if have exactly one, show excerpt or image or both according to options set
+				foreach ( $post_list_array as $post_ID ) {
+						$permalink 	= get_permalink( $post_ID );
+						$post 		= get_post( $post_ID );
+						$title 		= get_the_title( $post_ID );
+						
+						if ( ! is_null ( $post ) ) {
+							if( $single_display_mode == 'excerpt' ) {				
+								$output .= apply_filters( 'the_excerpt', $post->post_excerpt ) . '<a href="'. $permalink . '" title = "' . __( 'Read post ', 'responsive-tabs' )  . $title . '">' . __( 'Read More', 'responsive-tabs') . '&raquo;</a>';	
+							}	elseif( $single_display_mode == 'image' ) {				
+								$output .=  '<a href="'. $permalink . '" title = "' . __( 'Read post ', 'responsive-tabs' ) . $title . '"> ' . get_the_post_thumbnail( $post_ID, $responsive_tabs_image_width ) . '</a>';		  
+					      } elseif( $single_display_mode == 'both' ) {
+						      $output .=  '<div class = "bulk-image-float-left"><a href="'. $permalink . '" title = "' . __( 'Read post ', 'responsive-tabs' )  . $title . '"> ' . get_the_post_thumbnail($post_ID, $responsive_tabs_both_image_width) . '</a></div>' .
+						       	apply_filters( 'the_excerpt', $post->post_excerpt )  . '<a href="'. $permalink . '" title = "' . __( 'Read post ', 'responsive-tabs' ) . $title . '">' . __( 'Read More', 'responsive-tabs') . '&raquo;</a>';	
+							} elseif( $single_display_mode == 'content') {
+								$output .= apply_filters( 'the_content', $post->post_content );
+							} elseif( $single_display_mode == 'all') {
+								$output .= '<div class = "bulk-image-float-left-large">' . get_the_post_thumbnail( $post_ID, $responsive_tabs_both_image_width ) . '</div>'; 								
+								$output .= apply_filters( 'the_content', $post->post_content );
+							}
+						} else { 
+							$output .= 'Check settings of Front Page Post Summary Widget';
+						}			  
+				  }     
+			} else { 
+				$output .= 'Check settings of Front Page Post Summary Widget';
+			}	
+		}	
+		if ( $responsive_tabs_widget_width == 'full' ) { // close pebble if used
+			$output .= '<div class = "horbar-clear-fix"></div>';			
+		}				
+		
+		$output .= '</div>'; // close textwidget or home_bulk_widget
+		 		
+		$output .= $after_widget ;									// is blank in home widget areas
 
 		echo $output;
 	}
@@ -318,27 +355,27 @@ class Front_Page_Post_Summary extends WP_Widget {
 		
 		$instance = $old_instance;
 		
-		$instance['title'] = strip_tags( $new_instance['title'] ); // no tags in title
-
-		$instance['post_list'] =  responsive_tabs_clean_post_list($new_instance['post_list']);
-		
-		$instance['single_display_mode'] = strip_tags($new_instance['single_display_mode']);
-
+		$instance['title'] 								= strip_tags( $new_instance['title'] ); // no tags in title
+		$instance['post_list'] 							= responsive_tabs_clean_post_list( $new_instance['post_list'] );
+		$instance['single_display_mode'] 			= strip_tags( $new_instance['single_display_mode'] );
+		$instance['responsive_tabs_widget_width'] = strip_tags( $new_instance['responsive_tabs_widget_width'] );
+		$instance['free_form_text'] 					= wp_kses_post( $new_instance['free_form_text'] );
 		return $instance;
 	}
 
 
 	function form( $instance ) {
 		
-		$title  = isset( $instance['title'] ) ? strip_tags( $instance['title'] ) : '';
-		$post_list = isset( $instance['post_list'] ) ? strip_tags( $instance['post_list'] ) : '';
-		$single_display_mode = isset( $instance['single_display_mode'] ) ? strip_tags( $instance['single_display_mode'] ) : '';
-		
+		$title  								= isset( $instance['title'] ) ? strip_tags( $instance['title'] ) : '';
+		$post_list 							= isset( $instance['post_list'] ) ? strip_tags( $instance['post_list'] ) : '';
+		$single_display_mode 			= isset( $instance['single_display_mode'] ) ? strip_tags( $instance['single_display_mode'] ) : 'excerpt';
+		$responsive_tabs_widget_width = isset( $instance['responsive_tabs_widget_width'] ) ? strip_tags( $instance ['responsive_tabs_widget_width'] ) : 'pebble';
+		$free_form_text 					= isset( $instance['free_form_text'] ) ? strip_tags( $instance ['free_form_text'] ) : '';		
 		?>
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'responsive-tabs' ); ?></label>
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" /></p>
 
-		<p><label for="<?php echo $this->get_field_id( 'post_list' ); ?>"><?php _e( 'ID numbers of posts to show (single or multiple separated by commas):<br />', 'responsive-tabs' ); ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'post_list' ); ?>"><?php _e( 'ID number(s) of post(s) to show:<br/> (single or multiple separated by commas)<br />', 'responsive-tabs' ); ?></label>
 		<input id="<?php echo $this->get_field_id( 'post_list' ); ?>" name="<?php echo $this->get_field_name( 'post_list' ); ?>" type="text" value="<?php echo $post_list; ?>" size="30" /></p>
 		
 		<?php 
@@ -355,10 +392,18 @@ class Front_Page_Post_Summary extends WP_Widget {
 				'value' => 'both',
 				'label' => __( 'Show image and excerpt for single', 'responsive-tabs' ),
 			),
+			'3' => array(
+				'value' => 'content',
+				'label' => __( 'Show content for single', 'responsive-tabs' ),
+			),
+			'4' => array(
+				'value' => 'all',
+				'label' => __( 'Show featured image and content for single', 'responsive-tabs' ),
+			),
 		);
 		$selected = $single_display_mode;  
    	?>
- 		<label for="single_display_mode"><?php _e('Display mode for single posts (if multiple, will only show titles):<br />', 'responsive-tabs' ); ?> </label>
+ 		<label for="single_display_mode"><?php _e('Display mode for single posts: <br/>(if multiple, widget will only show titles)<br />', 'responsive-tabs' ); ?> </label>
 		<select id="<?php echo $this->get_field_id( 'single_display_mode' ); ?>" name="<?php echo $this->get_field_name( 'single_display_mode' ); ?>">    	
 		<?php 
 			$p = '';
@@ -372,7 +417,40 @@ class Front_Page_Post_Summary extends WP_Widget {
 	         }
 		   } 
 		 	echo $p . $r . 
-	 	'</select>'; 
+	 	'</select><br /><br />'; 
+	 	
+	 	$responsive_tabs_widget_width_options = array(
+			'0' => array(
+				'value' =>	'pebble',
+				'label' =>  __( 'Show 4 widgets per row on desk top ', 'responsive-tabs' ),
+			),
+			'1' => array(
+				'value' =>	'full',
+				'label' =>  __( 'Show 1 widget per row on all screens', 'responsive-tabs' ),
+			),
+		);
+		
+		$selected = $responsive_tabs_widget_width;  
+   	?>
+ 		<label for="responsive_tabs_widget_width"><?php _e('Widget Width:<br />', 'responsive-tabs' ); ?> </label>
+		<select id="<?php echo $this->get_field_id( 'responsive_tabs_widget_width' ); ?>" name="<?php echo $this->get_field_name( 'responsive_tabs_widget_width' ); ?>">    	
+		<?php 
+			$p = '';
+			$r = '';
+			foreach (  $responsive_tabs_widget_width_options as $option ) {
+		    	$label = $option['label'];
+				if ( $selected == $option['value'] ) { // Make selected first in list
+			   	$p = '<option selected="selected" value="' . $option['value']  . '">' . $label . '</option>';
+				} else {
+					$r .= '<option value="' . $option['value'] . '">' . $label . '</option>';
+	         }
+		   } 
+		 	echo $p . $r . 
+	 	'</select><br />';?>
+
+		<p><label for="<?php echo $this->get_field_id( 'free_form_text' ); ?>"><?php _e( 'Free form text instead of post content<br />(text widget with width control)<br />','responsive-tabs' ); ?></label>
+		<textarea type="text" rows = "5" cols = "20" id="<?php echo $this->get_field_id( 'free_form_text' ); ?>" name="<?php echo $this->get_field_name( 'free_form_text' ); ?>"><?php echo $free_form_text; ?></textarea></p> 	 	
+	 	<?php
 	} 
 }
 

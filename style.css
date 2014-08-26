@@ -584,17 +584,27 @@ ul.children {
 }
 
 
-/* home widget 1 formatting (collection of small regular widgets in larger area*/
+/* formatting for content presented as collection of small regular widgets in larger area */
+
+.bulk-image-float-left-large {
+	float: left;
+	padding-top: 0px;
+	margin-top: 0px;
+	padding-right: 8px;
+}
 
 .bulk-image-float-left {
 	float: left;
 	padding-top: 0px;
 	margin-top: 0px;
-	padding-right: 5px;
+	padding-right: 4px;
 }
 
+
+
+
 .home-bulk-widget-wrapper {
-	  background: #fff;
+	  background: inherit;  
 	 -webkit-box-sizing: border-box;
 	 -moz-box-sizing: border-box; 
 	  box-sizing: border-box;
@@ -963,23 +973,20 @@ div#front-page-post-entry {
 
 /* widgets generally formatting */
 
-.general-home-widget-wrapper {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box; 
-	box-sizing: border-box;		
-	padding: 8px;
-}
-
 .sidebar-widget-wrapper h2 {
 	margin: 0; 
 }
 
 .sidebar-widget-wrapper {
-   	background: #fff; 
-   	border: 0px; 
-    	border-radius: 0px;
-    	margin: 0 0 20px 0; 
-    	padding: 20px; 
+	background: #fff; 
+	border: 0px; 
+ 	border-radius: 0px;
+ 	margin: 0 0 20px 0; 
+ 	padding: 20px; 
+}
+
+.home-bulk-text-widget {
+	padding: 10px 0 0 8px;
 }
 
 /* responsive-tabs category widget styles */

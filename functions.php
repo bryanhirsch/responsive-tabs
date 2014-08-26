@@ -93,9 +93,9 @@ function responsive_tabs_widgets_init() {
 				'description' 		=> __( 'Widget area for Tab content', 'responsive-tabs' ),
 				'id' 					=> 'home_widget_' . $index,
 				'class' 				=> '',
-				'before_widget' 	=> '<div class = "general-home-widget-wrapper"> ',
-				'after_widget' 	=> '</div>',
-				'before_title' 	=> '<h2 class = widgettitle>',
+				'before_widget' 	=> '',
+				'after_widget' 	=> '',
+				'before_title' 	=> '<h2 class = "widgettitle">',
 				'after_title' 		=> '</h2>',
 			) );
 	}
@@ -107,7 +107,7 @@ function responsive_tabs_widgets_init() {
 		'class' 				=> '',
 		'before_widget' 	=> '<div class = "header-bar-widget-wrapper"> ',
 		'after_widget' 	=> '</div>',
-		'before_title' 	=> '<h2 class = widgettitle>',
+		'before_title' 	=> '<h2 class = "widgettitle">',
 		'after_title' 		=> '</h2>',
 	) );
 
@@ -118,16 +118,17 @@ function responsive_tabs_widgets_init() {
 		'class' 				=> '',
 		'before_widget' 	=> '<div class = "side-menu-widget-wrapper"> ',
 		'after_widget' 	=> '</div>',
-		'before_title' 	=> '<h2 class = widgettitle>',
+		'before_title' 	=> '<h2 class = "widgettitle">',
 		'after_title' 		=> '</h2>',
 	) );
+	
 	register_sidebar( array(
 		'name' 				=> __( 'Post Sidebar', 'responsive-tabs' ),
 		'description' 		=> __( 'Displayed with Posts', 'responsive-tabs' ),
 		'id' 					=> 'post_sidebar',
 		'before_widget' 	=> '<div class = "sidebar-widget-wrapper"> ',
 		'after_widget' 	=> '</div>',
-		'before_title' 	=> '<h2 class = widgettitle>',
+		'before_title' 	=> '<h2 class = "widgettitle">',
 		'after_title' 		=> '</h2>',
 	) );
 
@@ -137,7 +138,7 @@ function responsive_tabs_widgets_init() {
 		'id' 					=> 'page_sidebar',
 		'before_widget' 	=> '<div class = "sidebar-widget-wrapper"> ',
 		'after_widget' 	=> '</div>',
-		'before_title' 	=> '<h2 class = widgettitle>',
+		'before_title' 	=> '<h2 class = "widgettitle">',
 		'after_title' 		=> '</h2>',
 	) );
 
@@ -148,7 +149,7 @@ function responsive_tabs_widgets_init() {
 		'id' 					=> 'bbpress_sidebar',
 		'before_widget' 	=> '<div class = "sidebar-widget-wrapper"> ',
 		'after_widget' 	=> '</div>',
-		'before_title' 	=> '<h2 class = widgettitle>',
+		'before_title' 	=> '<h2 class = "widgettitle">',
 		'after_title' 		=> '</h2>',
 	) );
 
@@ -192,6 +193,8 @@ add_theme_support( 'custom-background', $background_default );
 add_theme_support( 'post-thumbnails', array ( 'post', 'page'));
 	add_image_size( 'front-page-thumb', 270, 9999 ); //270 pixels wide (and unlimited height)
 	add_image_size( 'front-page-half-thumb', 135, 9999 ); //135 pixels wide (and unlimited height)
+	add_image_size( 'post-content-width', 560, 9999); // fits post content width on desktop
+	add_image_size( 'full-width', 1140, 99999); // fits full width window (as on front page in single widget row) in desktop
 
 add_theme_support( 'html5', array( 'search-form' ) );
 
