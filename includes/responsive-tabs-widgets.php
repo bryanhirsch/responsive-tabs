@@ -261,7 +261,7 @@ class Front_Page_Post_Summary extends WP_Widget {
 		parent::__construct(
 			'responsive_tabs_front_page_post_summary', // Base ID
 			__( 'Front Page Post Summary', 'responsive-tabs' ), // Name
-			array( 'description' => __( 'Top and second level categories in wide format', 'responsive-tabs' ), ) // Args
+			array( 'description' => __( 'Post links, excerpt or content for front page', 'responsive-tabs' ), ) // Args
 		);
 	}
 
