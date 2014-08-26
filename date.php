@@ -10,7 +10,8 @@
 /* assure that will die if accessed directly */ 
 defined( 'ABSPATH' ) or die( "Unauthorized direct script access." );
 
-get_header();
+// Don't get header. Debugging.
+// get_header();
 
 
 
