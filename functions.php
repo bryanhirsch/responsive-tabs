@@ -12,6 +12,8 @@
 * -- adds functions to create archive drop downs by authors and category
 * -- adds function to sanitize a list of post id's
 *
+* Here's some new documentation.
+*
 * @package responsive-tabs
 *
 */
